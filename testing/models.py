@@ -77,6 +77,7 @@ class TestPoint(models.Model):
     def __str__(self):
         return self.test_point_number
 
+
 class TestPointCondition(models.Model):
     test_point = models.ForeignKey(
         TestPoint,
