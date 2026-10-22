@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FTMS - Test Matrix</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #e9eef5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Flight Test Matrix</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Test Point</th>
+                <th>Test</th>
+                <th>Weight</th>
+                <th>CG</th>
+                <th>Speed (kt)</th>
+                <th>Altitude (ft)</th>
+                <th>Repetitions</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for point in test_points %}
+            <tr>
+                <td>{{ point.test_point_number }}</td>
+                <td>{{ point.test.test_title }}</td>
+                <td>{{ point.weight_category }}</td>
+                <td>{{ point.cg_category }}</td>
+                <td>{{ point.target_speed|default_if_none:"-" }}</td>
+                <td>{{ point.target_altitude|default_if_none:"-" }}</td>
+                <td>{{ point.repetition_required }}</td>
+                <td>{{ point.status }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8">No test points found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
