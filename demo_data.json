@@ -1,0 +1,202 @@
+[
+{
+  "model": "programs.program",
+  "pk": 1,
+  "fields": {
+    "name": "FTMS-DEMO-01",
+    "description": "",
+    "status": "Active"
+  }
+},
+{
+  "model": "programs.program",
+  "pk": 2,
+  "fields": {
+    "name": "FTMS-DEMO-02",
+    "description": "",
+    "status": "Active"
+  }
+},
+{
+  "model": "programs.aircraft",
+  "pk": 1,
+  "fields": {
+    "program": 1,
+    "aircraft_number": "F001",
+    "registration": "AA0001",
+    "serial_number": "1",
+    "aircraft_type": "Fixed-wing",
+    "remarks": ""
+  }
+},
+{
+  "model": "programs.aircraft",
+  "pk": 2,
+  "fields": {
+    "program": 1,
+    "aircraft_number": "F002",
+    "registration": "AA0002",
+    "serial_number": "2",
+    "aircraft_type": "Fixed-wing",
+    "remarks": ""
+  }
+},
+{
+  "model": "testing.engineeringtestrequirement",
+  "pk": 1,
+  "fields": {
+    "program": 1,
+    "document_number": "ETR-001",
+    "document_title": "Flight Performance Testing",
+    "purpose": "Flight Performance Test Requirements",
+    "remarks": ""
+  }
+},
+{
+  "model": "testing.engineeringtestrequirement",
+  "pk": 2,
+  "fields": {
+    "program": 1,
+    "document_number": "ETR-002",
+    "document_title": "Flight Characteristic Testing",
+    "purpose": "Flight Characteristic Test Requirements",
+    "remarks": ""
+  }
+},
+{
+  "model": "testing.test",
+  "pk": 1,
+  "fields": {
+    "engineering_requirement": 1,
+    "test_number": "TEST-001",
+    "test_title": "Position Error Correction (PEC)",
+    "objective": "Calibrate the pitot static system",
+    "special_equipment": "",
+    "special_test_requirement": "",
+    "test_procedure": "",
+    "pass_fail_criteria": "",
+    "related_regulation": "",
+    "remarks": ""
+  }
+},
+{
+  "model": "testing.test",
+  "pk": 2,
+  "fields": {
+    "engineering_requirement": 1,
+    "test_number": "TEST-002",
+    "test_title": "Climb Performance",
+    "objective": "Evaluate the climb performance of the aircraft",
+    "special_equipment": "",
+    "special_test_requirement": "",
+    "test_procedure": "",
+    "pass_fail_criteria": "",
+    "related_regulation": "",
+    "remarks": ""
+  }
+},
+{
+  "model": "testing.testpoint",
+  "pk": 3,
+  "fields": {
+    "test": 1,
+    "test_point_number": "PEC-001",
+    "weight_category": "heavy",
+    "cg_category": "Forward",
+    "target_speed": 60.0,
+    "target_altitude": 5000.0,
+    "repetition_required": 1,
+    "pass_fail_criteria": "",
+    "status": "PLANNED",
+    "remarks": ""
+  }
+},
+{
+  "model": "testing.testpoint",
+  "pk": 4,
+  "fields": {
+    "test": 1,
+    "test_point_number": "PEC-002",
+    "weight_category": "heavy",
+    "cg_category": "Forward",
+    "target_speed": 80.0,
+    "target_altitude": 5000.0,
+    "repetition_required": 1,
+    "pass_fail_criteria": "",
+    "status": "PLANNED",
+    "remarks": ""
+  }
+},
+{
+  "model": "testing.testpoint",
+  "pk": 5,
+  "fields": {
+    "test": 1,
+    "test_point_number": "PEC-003",
+    "weight_category": "heavy",
+    "cg_category": "Forward",
+    "target_speed": 100.0,
+    "target_altitude": 5000.0,
+    "repetition_required": 1,
+    "pass_fail_criteria": "",
+    "status": "PLANNED",
+    "remarks": ""
+  }
+},
+{
+  "model": "testing.testpoint",
+  "pk": 6,
+  "fields": {
+    "test": 2,
+    "test_point_number": "CLB-001",
+    "weight_category": "heavy",
+    "cg_category": "Forward",
+    "target_speed": 70.0,
+    "target_altitude": 3000.0,
+    "repetition_required": 1,
+    "pass_fail_criteria": "",
+    "status": "PLANNED",
+    "remarks": ""
+  }
+},
+{
+  "model": "testing.testpoint",
+  "pk": 7,
+  "fields": {
+    "test": 2,
+    "test_point_number": "CLB-002",
+    "weight_category": "heavy",
+    "cg_category": "Forward",
+    "target_speed": 5000.0,
+    "target_altitude": null,
+    "repetition_required": 1,
+    "pass_fail_criteria": "",
+    "status": "PLANNED",
+    "remarks": ""
+  }
+},
+{
+  "model": "testing.testpointcondition",
+  "pk": 1,
+  "fields": {
+    "test_point": 6,
+    "name": "Initial Altitude",
+    "value": "3000",
+    "unit": "ft",
+    "tolerance": "",
+    "remarks": ""
+  }
+},
+{
+  "model": "testing.testpointcondition",
+  "pk": 2,
+  "fields": {
+    "test_point": 6,
+    "name": "Final Altitude",
+    "value": "8000",
+    "unit": "ft",
+    "tolerance": "",
+    "remarks": ""
+  }
+}
+]
