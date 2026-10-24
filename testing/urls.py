@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path(
-        'matrix/',
+        'program/<int:program_id>/matrix/',
         views.test_matrix,
         name='test_matrix',
     ),
