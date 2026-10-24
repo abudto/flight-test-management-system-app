@@ -3,31 +3,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>FTMS - Test Matrix</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTMS - Flight Test Matrix</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 40px;
+            background-color: #f5f7fa;
+        }
+
+        h1 {
+            color: #183153;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            background-color: white;
         }
 
         th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
+            border: 1px solid #d9e0e8;
+            padding: 12px;
             text-align: left;
         }
 
         th {
-            background-color: #e9eef5;
+            background-color: #183153;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f5f9;
         }
     </style>
 </head>
+
 <body>
     <h1>Flight Test Matrix</h1>
+    <h3>Program: {{ program.name }}</h3>
 
     <table>
         <thead>
@@ -48,8 +63,8 @@
             <tr>
                 <td>{{ point.test_point_number }}</td>
                 <td>{{ point.test.test_title }}</td>
-                <td>{{ point.weight_category }}</td>
-                <td>{{ point.cg_category }}</td>
+                <td>{{ point.get_weight_category_display }}</td>
+                <td>{{ point.get_cg_category_display }}</td>
                 <td>{{ point.target_speed|default_if_none:"-" }}</td>
                 <td>{{ point.target_altitude|default_if_none:"-" }}</td>
                 <td>{{ point.repetition_required }}</td>
@@ -57,7 +72,9 @@
             </tr>
             {% empty %}
             <tr>
-                <td colspan="8">No test points found.</td>
+                <td colspan="8">
+                    No test points found for this program.
+                </td>
             </tr>
             {% endfor %}
         </tbody>
