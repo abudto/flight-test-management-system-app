@@ -67,7 +67,8 @@ def export_test_matrix(request, program_id):
 
     # 3. Create Excel workbook
     workbook = Workbook()
-    worksheet = workbook.active
+    worksheet = workbook.create_sheet('Flight Test Matrix')
+    worksheet.remove(workbook.worksheets[0])
     worksheet.title = "Flight Test Matrix"
 
     # 4. Define columns

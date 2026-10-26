@@ -8,8 +8,8 @@ urlpatterns = [
         name='test_matrix',
     ),
     path(
-    'program/<int:program_id>/matrix/export/',
-    views.export_test_matrix,
-    name='export_test_matrix',
+        'program/<int:program_id>/matrix/export/',
+        views.export_test_matrix,
+        name='export_test_matrix',
     ),
 ]
