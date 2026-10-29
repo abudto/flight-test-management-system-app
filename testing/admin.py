@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import EngineeringTestRequirement, Test, TestPoint, TestPointCondition
-
+from .models import TestCard, TestSequence, TestSequenceItem
 
 @admin.register(EngineeringTestRequirement)
 class EngineeringTestRequirementAdmin(admin.ModelAdmin):
@@ -52,4 +52,52 @@ class TestPointConditionAdmin(admin.ModelAdmin):
         'name',
         'value',
         'unit',
+    )
+
+
+@admin.register(TestCard)
+class TestCardAdmin(admin.ModelAdmin):
+    list_display = (
+        "card_number",
+        "title",
+        "test",
+        "revision",
+    )
+    search_fields = (
+        "card_number",
+        "title",
+    )
+
+
+class TestSequenceItemInline(admin.TabularInline):
+    model = TestSequenceItem
+    extra = 1
+
+
+@admin.register(TestSequence)
+class TestSequenceAdmin(admin.ModelAdmin):
+    list_display = (
+        "sequence_number",
+        "title",
+        "program",
+        "revision",
+        "planned_date",
+    )
+
+    search_fields = (
+        "sequence_number",
+        "title",
+    )
+
+    inlines = [TestSequenceItemInline]
+
+
+@admin.register(TestSequenceItem)
+class TestSequenceItemAdmin(admin.ModelAdmin):
+    list_display = (
+        "sequence",
+        "order",
+        "test_point",
+        "test_card",
+        "estimated_duration_min",
     )
