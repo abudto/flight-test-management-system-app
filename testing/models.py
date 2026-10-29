@@ -93,3 +93,103 @@ class TestPointCondition(models.Model):
 
     def __str__(self):
         return f'{self.name}: {self.value} {self.unit}'.strip()
+
+
+class TestCard(models.Model):
+    test = models.ForeignKey(
+        Test,
+        on_delete=models.CASCADE,
+        related_name="test_cards",
+    )
+
+    card_number = models.CharField(max_length=50)
+    title = models.CharField(max_length=200)
+    revision = models.CharField(max_length=20, default="A")
+
+    preparation = models.TextField(blank=True)
+    procedure = models.TextField()
+    safety_notes = models.TextField(blank=True)
+    remarks = models.TextField(blank=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["test", "card_number", "revision"],
+                name="unique_card_revision_per_test",
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.card_number} Rev {self.revision}"
+
+
+class TestSequence(models.Model):
+    program = models.ForeignKey(
+        Program,
+        on_delete=models.CASCADE,
+        related_name="test_sequences",
+    )
+
+    sequence_number = models.CharField(max_length=50)
+    title = models.CharField(max_length=200)
+    revision = models.CharField(max_length=20, default="A")
+
+    planned_date = models.DateField(null=True, blank=True)
+    objective = models.TextField(blank=True)
+    remarks = models.TextField(blank=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["program", "sequence_number", "revision"],
+                name="unique_sequence_revision_per_program",
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.sequence_number} Rev {self.revision}"
+
+
+class TestSequenceItem(models.Model):
+    sequence = models.ForeignKey(
+        TestSequence,
+        on_delete=models.CASCADE,
+        related_name="items",
+    )
+
+    order = models.PositiveIntegerField()
+    test_point = models.ForeignKey(
+        TestPoint,
+        on_delete=models.PROTECT,
+        related_name="sequence_items",
+    )
+
+    test_card = models.ForeignKey(
+        TestCard,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="sequence_items",
+    )
+
+    estimated_duration_min = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+    )
+
+    remarks = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ["order"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["sequence", "order"],
+                name="unique_order_per_sequence",
+            )
+        ]
+
+    def __str__(self):
+        return (
+            f"{self.sequence.sequence_number} - "
+            f"{self.order}: {self.test_point.test_point_number}"
+        )
