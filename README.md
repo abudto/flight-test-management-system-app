@@ -23,8 +23,8 @@ or provide approved operational instructions.
 | Reference catalogs | Units, measurements, regulations, regulatory requirements, and crew |
 | Quality baseline | Automated model, matrix, Excel, and PDF tests; GitHub Actions workflow |
 
-Data entry uses Django admin. There is no custom planning editor, homepage, or
-program-selection page. Regulations, units, aircraft, and crew are stored, but
+Data entry uses Django admin. The homepage lists programs with links to their
+test matrices; dedicated editing pages are planned. Regulations, units, aircraft, and crew are stored, but
 are not fully connected to certification, measurement validation, or operations.
 
 Planned capabilities include aircraft configuration baselines, program membership
@@ -182,6 +182,7 @@ python manage.py runserver 127.0.0.1:8000
 
 Open:
 
+- Homepage and matrix selection: <http://127.0.0.1:8000/>
 - Admin: <http://127.0.0.1:8000/admin/>
 - Demo matrix: <http://127.0.0.1:8000/testing/program/101/matrix/>
 - Demo Excel: <http://127.0.0.1:8000/testing/program/101/matrix/export/>
@@ -189,7 +190,7 @@ Open:
 The matrix includes an Excel download link. Card and sequence PDFs are available at
 `/testing/card/<card_id>/export/pdf/` and
 `/testing/sequence/<sequence_id>/export/pdf/`; obtain IDs from admin records.
-Use the actual program ID for your own records. The root URL `/` has no homepage.
+Use the actual program ID for your own records, or choose a matrix from the homepage.
 Stop the server with Ctrl+C. Django's development server is not a production host.
 
 ## Automated checks

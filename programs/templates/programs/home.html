@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Home | FTMS{% endblock %}
+
+{% block content %}
+<section class="page-intro" aria-labelledby="home-heading">
+    <p class="eyebrow">Flight test engineering</p>
+    <h1 id="home-heading">Plan with clarity.</h1>
+    <p class="intro-copy">Explore program test matrices and keep your engineering planning connected.</p>
+    <p class="supporting-copy">Manage planning records and reference data in Django Admin.</p>
+    <a class="button" href="{% url 'admin:index' %}">Open Django Admin <span aria-hidden="true">&rarr;</span></a>
+</section>
+
+<section class="panel" id="test-matrices" aria-labelledby="matrix-heading">
+    <div class="section-heading">
+        <div><p class="eyebrow">Program workspace</p><h2 id="matrix-heading">Test matrices</h2></div>
+        <span class="status-badge available">Available</span>
+    </div>
+    <p class="section-description">Select a program to view its planned test points and export an Excel matrix.</p>
+    <div class="table-scroll" role="region" aria-label="Program test matrices" tabindex="0">
+        <table>
+            <caption class="visually-hidden">Programs with available test matrix pages</caption>
+            <thead><tr><th scope="col">Program</th><th scope="col">Status</th><th scope="col">Workspace</th></tr></thead>
+            <tbody>
+                {% for aircraft_program in programs %}
+                <tr>
+                    <td>{{ aircraft_program.name }}</td>
+                    <td><span class="status-badge">{{ aircraft_program.status }}</span></td>
+                    <td><a href="{% url 'test_matrix' aircraft_program.pk %}">View matrix<span class="visually-hidden"> for {{ aircraft_program.name }}</span> <span aria-hidden="true">&rarr;</span></a></td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="3" class="empty-state">No programs yet. Create a program in Django Admin to open its test matrix.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="upcoming-section" aria-labelledby="upcoming-heading">
+    <h2 id="upcoming-heading">Next in the workspace</h2>
+    <div class="feature-grid">
+        <article class="feature-card"><span class="status-badge">Coming Soon</span><h3>Test Cards</h3><p>A dedicated workspace for browsing and managing test cards.</p></article>
+        <article class="feature-card"><span class="status-badge">Coming Soon</span><h3>Test Sequences</h3><p>A dedicated workspace for organizing planned execution sequences.</p></article>
+        <article class="feature-card"><span class="status-badge">Coming Soon</span><h3>Hazard Analysis</h3><p>A dedicated workspace for reviewing hazards and mitigations.</p></article>
+    </div>
+    <p class="supporting-copy">Existing card, sequence, and hazard records remain available through Django Admin.</p>
+</section>
+{% endblock %}

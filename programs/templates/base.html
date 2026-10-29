@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FTMS | Flight Test Management System{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'programs/css/ftms.css' %}">
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header class="app-header">
+        <div class="header-inner">
+            <a class="brand" href="{% url 'home' %}">
+                <span class="brand-mark" aria-hidden="true">FT</span>
+                <span><strong>FTMS</strong><span class="brand-description">Flight Test Management System</span></span>
+            </a>
+            <span class="workspace-label">Engineering workspace</span>
+        </div>
+        <nav class="main-nav" aria-label="Main navigation">
+            <a href="{% url 'home' %}"{% if request.resolver_match.url_name == 'home' %} aria-current="page"{% endif %}>Home</a>
+            <span class="nav-unavailable" aria-disabled="true">Programs <small>Coming Soon</small></span>
+            {% if request.resolver_match.url_name == 'test_matrix' %}
+            <a href="{% url 'test_matrix' program.pk %}" aria-current="page">Test Matrix</a>
+            {% else %}
+            <a href="{% url 'home' %}#test-matrices">Test Matrix</a>
+            {% endif %}
+            <span class="nav-unavailable" aria-disabled="true">Test Cards <small>Coming Soon</small></span>
+            <span class="nav-unavailable" aria-disabled="true">Test Sequences <small>Coming Soon</small></span>
+            <span class="nav-unavailable" aria-disabled="true">Hazard Analysis <small>Coming Soon</small></span>
+            <a href="{% url 'admin:index' %}">Django Admin</a>
+        </nav>
+    </header>
+    <main id="main-content" class="page-container" tabindex="-1">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="app-footer">FTMS <span aria-hidden="true">/</span> Flight test planning and engineering</footer>
+</body>
+</html>
