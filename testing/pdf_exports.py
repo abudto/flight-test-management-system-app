@@ -42,6 +42,7 @@ def make_styles():
         textColor=NAVY,
         spaceBefore=9,
         spaceAfter=4,
+        keepwithNext=1,
     ))
     styles.add(ParagraphStyle(
         name="FTMSCell",
@@ -217,10 +218,14 @@ def generate_card_pdf(card):
     ]
 
     for heading, content in sections:
-        story.append(KeepTogether([
-            Paragraph(heading, s["FTMSHeading"]),
-            paragraph(content or "-", s["FTMSBody"]),
-        ]))
+        story.append(Paragraph(
+            heading,
+            s["FTMSHeading"],
+        ))
+        story.append(paragraph(
+            content or "-",
+            s["FTMSBody"],
+        ))
 
     story.append(Paragraph("Associated Test Points", s["FTMSHeading"]))
 
