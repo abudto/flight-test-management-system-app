@@ -1,269 +1,3182 @@
 [
-{
-  "model": "programs.program",
-  "pk": 1,
-  "fields": {
-    "name": "FTMS-DEMO-01",
-    "description": "",
-    "status": "Active"
+  {
+    "model": "programs.program",
+    "pk": 101,
+    "fields": {
+      "name": "FTMS-DEMO-P23",
+      "description": "FICTIONAL fixed-wing normal-category airplane demonstration. All conditions, criteria and procedures are illustrative; NOT FOR FLIGHT USE.",
+      "status": "Active"
+    }
+  },
+  {
+    "model": "programs.aircraft",
+    "pk": 101,
+    "fields": {
+      "program": 101,
+      "aircraft_number": "DEMO-FW-01",
+      "registration": "N-DEMO",
+      "serial_number": "DEMO-001",
+      "aircraft_type": "Fictional single-engine fixed-wing airplane",
+      "remarks": "Synthetic aircraft; no approved flight envelope or type design."
+    }
+  },
+  {
+    "model": "programs.aircraft",
+    "pk": 102,
+    "fields": {
+      "program": 101,
+      "aircraft_number": "DEMO-FW-02",
+      "registration": "N-DEMO2",
+      "serial_number": "DEMO-002",
+      "aircraft_type": "Fictional single-engine fixed-wing airplane",
+      "remarks": "Reserve demonstration aircraft; synthetic record."
+    }
+  },
+  {
+    "model": "reference_data.unitdefinition",
+    "pk": 101,
+    "fields": {
+      "quantity": "Speed",
+      "name": "Knot",
+      "symbol": "kt",
+      "to_si_factor": "0.5144444444"
+    }
+  },
+  {
+    "model": "reference_data.unitdefinition",
+    "pk": 102,
+    "fields": {
+      "quantity": "Length",
+      "name": "Foot",
+      "symbol": "ft",
+      "to_si_factor": "0.3048000000"
+    }
+  },
+  {
+    "model": "reference_data.unitdefinition",
+    "pk": 103,
+    "fields": {
+      "quantity": "Mass",
+      "name": "Kilogram",
+      "symbol": "kg",
+      "to_si_factor": "1.0000000000"
+    }
+  },
+  {
+    "model": "reference_data.unitdefinition",
+    "pk": 104,
+    "fields": {
+      "quantity": "Angle",
+      "name": "Degree",
+      "symbol": "deg",
+      "to_si_factor": "0.0174532925"
+    }
+  },
+  {
+    "model": "reference_data.unitdefinition",
+    "pk": 105,
+    "fields": {
+      "quantity": "Time",
+      "name": "Second",
+      "symbol": "s",
+      "to_si_factor": "1.0000000000"
+    }
+  },
+  {
+    "model": "reference_data.unitdefinition",
+    "pk": 106,
+    "fields": {
+      "quantity": "Rate of climb",
+      "name": "Foot per minute",
+      "symbol": "ft/min",
+      "to_si_factor": "0.0050800000"
+    }
+  },
+  {
+    "model": "reference_data.unitdefinition",
+    "pk": 107,
+    "fields": {
+      "quantity": "Distance",
+      "name": "Nautical mile",
+      "symbol": "NM",
+      "to_si_factor": "1852.0000000000"
+    }
+  },
+  {
+    "model": "reference_data.unitdefinition",
+    "pk": 108,
+    "fields": {
+      "quantity": "Pressure",
+      "name": "Hectopascal",
+      "symbol": "hPa",
+      "to_si_factor": "100.0000000000"
+    }
+  },
+  {
+    "model": "reference_data.unitdefinition",
+    "pk": 109,
+    "fields": {
+      "quantity": "Temperature",
+      "name": "Degree Celsius",
+      "symbol": "degC",
+      "to_si_factor": "1.0000000000"
+    }
+  },
+  {
+    "model": "reference_data.unitdefinition",
+    "pk": 110,
+    "fields": {
+      "quantity": "Acceleration",
+      "name": "Meter per second squared",
+      "symbol": "m/s2",
+      "to_si_factor": "1.0000000000"
+    }
+  },
+  {
+    "model": "reference_data.measurementdefinition",
+    "pk": 101,
+    "fields": {
+      "name": "Indicated Airspeed",
+      "code": "IAS",
+      "description": "Demo metadata; verify definition and reference before operational use.",
+      "quantity": "Speed",
+      "default_unit": 101
+    }
+  },
+  {
+    "model": "reference_data.measurementdefinition",
+    "pk": 102,
+    "fields": {
+      "name": "Pressure Altitude",
+      "code": "PA",
+      "description": "Demo metadata; verify definition and reference before operational use.",
+      "quantity": "Length",
+      "default_unit": 102
+    }
+  },
+  {
+    "model": "reference_data.measurementdefinition",
+    "pk": 103,
+    "fields": {
+      "name": "Aircraft Mass",
+      "code": "MASS",
+      "description": "Demo metadata; verify definition and reference before operational use.",
+      "quantity": "Mass",
+      "default_unit": 103
+    }
+  },
+  {
+    "model": "reference_data.measurementdefinition",
+    "pk": 104,
+    "fields": {
+      "name": "Bank Angle",
+      "code": "BANK",
+      "description": "Demo metadata; verify definition and reference before operational use.",
+      "quantity": "Angle",
+      "default_unit": 104
+    }
+  },
+  {
+    "model": "reference_data.measurementdefinition",
+    "pk": 105,
+    "fields": {
+      "name": "Rate of Climb",
+      "code": "ROC",
+      "description": "Demo metadata; verify definition and reference before operational use.",
+      "quantity": "Rate of climb",
+      "default_unit": 106
+    }
+  },
+  {
+    "model": "reference_data.measurementdefinition",
+    "pk": 106,
+    "fields": {
+      "name": "Takeoff Distance",
+      "code": "TOD",
+      "description": "Demo metadata; verify definition and reference before operational use.",
+      "quantity": "Distance",
+      "default_unit": 107
+    }
+  },
+  {
+    "model": "reference_data.measurementdefinition",
+    "pk": 107,
+    "fields": {
+      "name": "Outside Air Temperature",
+      "code": "OAT",
+      "description": "Demo metadata; verify definition and reference before operational use.",
+      "quantity": "Temperature",
+      "default_unit": 109
+    }
+  },
+  {
+    "model": "reference_data.measurementdefinition",
+    "pk": 108,
+    "fields": {
+      "name": "Angle of Sideslip",
+      "code": "AOS",
+      "description": "Demo metadata; verify definition and reference before operational use.",
+      "quantity": "Angle",
+      "default_unit": 104
+    }
+  },
+  {
+    "model": "reference_data.measurementdefinition",
+    "pk": 109,
+    "fields": {
+      "name": "Heading",
+      "code": "HDG",
+      "description": "Demo metadata; verify definition and reference before operational use.",
+      "quantity": "Angle",
+      "default_unit": 104
+    }
+  },
+  {
+    "model": "reference_data.regulation",
+    "pk": 101,
+    "fields": {
+      "code": "14 CFR Part 23",
+      "title": "Airworthiness Standards: Normal Category Airplanes",
+      "authority": "FAA",
+      "revision": "Demonstration reference; verify current eCFR text"
+    }
+  },
+  {
+    "model": "reference_data.regulatoryrequirement",
+    "pk": 101,
+    "fields": {
+      "regulation": 101,
+      "section": "23.2005",
+      "description": "Certification of normal category airplanes (illustrative mapping only; check current rule and approved MoC)."
+    }
+  },
+  {
+    "model": "reference_data.regulatoryrequirement",
+    "pk": 102,
+    "fields": {
+      "regulation": 101,
+      "section": "23.2100",
+      "description": "Weight and center of gravity (illustrative mapping only; check current rule and approved MoC)."
+    }
+  },
+  {
+    "model": "reference_data.regulatoryrequirement",
+    "pk": 103,
+    "fields": {
+      "regulation": 101,
+      "section": "23.2105",
+      "description": "Performance data (illustrative mapping only; check current rule and approved MoC)."
+    }
+  },
+  {
+    "model": "reference_data.regulatoryrequirement",
+    "pk": 104,
+    "fields": {
+      "regulation": 101,
+      "section": "23.2110",
+      "description": "Stall speed (illustrative mapping only; check current rule and approved MoC)."
+    }
+  },
+  {
+    "model": "reference_data.regulatoryrequirement",
+    "pk": 105,
+    "fields": {
+      "regulation": 101,
+      "section": "23.2115",
+      "description": "Takeoff performance (illustrative mapping only; check current rule and approved MoC)."
+    }
+  },
+  {
+    "model": "reference_data.regulatoryrequirement",
+    "pk": 106,
+    "fields": {
+      "regulation": 101,
+      "section": "23.2120",
+      "description": "Climb requirements (illustrative mapping only; check current rule and approved MoC)."
+    }
+  },
+  {
+    "model": "reference_data.regulatoryrequirement",
+    "pk": 107,
+    "fields": {
+      "regulation": 101,
+      "section": "23.2125",
+      "description": "Climb information (illustrative mapping only; check current rule and approved MoC)."
+    }
+  },
+  {
+    "model": "reference_data.regulatoryrequirement",
+    "pk": 108,
+    "fields": {
+      "regulation": 101,
+      "section": "23.2130",
+      "description": "Landing (illustrative mapping only; check current rule and approved MoC)."
+    }
+  },
+  {
+    "model": "reference_data.regulatoryrequirement",
+    "pk": 109,
+    "fields": {
+      "regulation": 101,
+      "section": "23.2135",
+      "description": "Controllability (illustrative mapping only; check current rule and approved MoC)."
+    }
+  },
+  {
+    "model": "reference_data.regulatoryrequirement",
+    "pk": 110,
+    "fields": {
+      "regulation": 101,
+      "section": "23.2140",
+      "description": "Trim (illustrative mapping only; check current rule and approved MoC)."
+    }
+  },
+  {
+    "model": "reference_data.regulatoryrequirement",
+    "pk": 111,
+    "fields": {
+      "regulation": 101,
+      "section": "23.2145",
+      "description": "Stability (illustrative mapping only; check current rule and approved MoC)."
+    }
+  },
+  {
+    "model": "reference_data.regulatoryrequirement",
+    "pk": 112,
+    "fields": {
+      "regulation": 101,
+      "section": "23.2150",
+      "description": "Stall characteristics, stall warning, and spins (illustrative mapping only; check current rule and approved MoC)."
+    }
+  },
+  {
+    "model": "reference_data.crewmember",
+    "pk": 101,
+    "fields": {
+      "full_name": "Alex Rivera",
+      "nickname": "Alex",
+      "employee_id": "DEMO-101",
+      "organization": "Fictional FT Team - Flight Test Pilot",
+      "active": true
+    }
+  },
+  {
+    "model": "reference_data.crewmember",
+    "pk": 102,
+    "fields": {
+      "full_name": "Morgan Lee",
+      "nickname": "Morgan",
+      "employee_id": "DEMO-102",
+      "organization": "Fictional FT Team - Flight Test Engineer",
+      "active": true
+    }
+  },
+  {
+    "model": "reference_data.crewmember",
+    "pk": 103,
+    "fields": {
+      "full_name": "Taylor Chen",
+      "nickname": "Taylor",
+      "employee_id": "DEMO-103",
+      "organization": "Fictional FT Team - Flight Test Instrumentation Engineer",
+      "active": true
+    }
+  },
+  {
+    "model": "reference_data.crewmember",
+    "pk": 104,
+    "fields": {
+      "full_name": "Jordan Patel",
+      "nickname": "Jordan",
+      "employee_id": "DEMO-104",
+      "organization": "Fictional FT Team - Safety Observer",
+      "active": true
+    }
+  },
+  {
+    "model": "testing.engineeringtestrequirement",
+    "pk": 101,
+    "fields": {
+      "program": 101,
+      "document_number": "ETR-P23-PERF-001",
+      "document_title": "Part 23 Demonstration - Flight Performance",
+      "purpose": "Demonstrate FTMS planning for airspeed calibration, takeoff, climb, level-flight, descent and landing performance.",
+      "remarks": "Not a compliance plan. Values are synthetic."
+    }
+  },
+  {
+    "model": "testing.engineeringtestrequirement",
+    "pk": 102,
+    "fields": {
+      "program": 101,
+      "document_number": "ETR-P23-FC-001",
+      "document_title": "Part 23 Demonstration - Flight Characteristics",
+      "purpose": "Demonstrate FTMS planning for stall, controllability, trim, longitudinal stability and lateral-directional characteristics.",
+      "remarks": "Not an approved test plan; maneuver design and recovery criteria require formal review."
+    }
+  },
+  {
+    "model": "testing.test",
+    "pk": 101,
+    "fields": {
+      "engineering_requirement": 101,
+      "test_number": "PERF-PEC",
+      "test_title": "Airspeed / Static Source Error Evaluation",
+      "objective": "Collect data to estimate airspeed and altitude system error over an approved range.",
+      "special_equipment": "Independent reference instrumentation and synchronized time base.",
+      "special_test_requirement": "Demonstration only. Execute no maneuver without aircraft-specific approved test plan, risk assessment and qualified crew.",
+      "test_procedure": "1. Verify approved test conditions and instrumentation.\n2. Establish stabilized level flight at the assigned test condition.\n3. Acquire synchronized reference and onboard air-data samples.\n4. Repeat in reciprocal headings where method requires.\n5. Mark data quality and terminate if any indication is unreliable.",
+      "pass_fail_criteria": "Data quality and repeatability reviewed against program-specific approved criteria; no numerical compliance limit is implied.",
+      "related_regulation": "14 CFR 23.2105; 23.2135",
+      "remarks": "SYNTHETIC DATA - NOT FOR FLIGHT USE"
+    }
+  },
+  {
+    "model": "testing.testcard",
+    "pk": 101,
+    "fields": {
+      "test": 101,
+      "card_number": "CARD-PERF-PEC",
+      "title": "Airspeed / Static Source Error Evaluation",
+      "revision": "A",
+      "preparation": "Verify test authorization, aircraft configuration, instrumentation health, weather, area clearance and crew briefing.",
+      "procedure": "1. Verify approved test conditions and instrumentation.\n2. Establish stabilized level flight at the assigned test condition.\n3. Acquire synchronized reference and onboard air-data samples.\n4. Repeat in reciprocal headings where method requires.\n5. Mark data quality and terminate if any indication is unreliable.",
+      "safety_notes": "DEMONSTRATION ONLY - NOT FOR FLIGHT USE. Apply aircraft-specific limitations, risk controls, abort and recovery procedures from approved documents.",
+      "remarks": "No approved flight envelope, safety margins or certification evidence provided."
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 101,
+    "fields": {
+      "test": 101,
+      "test_point_number": "PERF-PEC-01",
+      "weight_category": "medium",
+      "cg_category": "Mid",
+      "target_speed": 75,
+      "target_altitude": 3000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 101,
+    "fields": {
+      "test_point": 101,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 102,
+    "fields": {
+      "test_point": 101,
+      "name": "Nominal mass",
+      "value": "1300",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 103,
+    "fields": {
+      "test_point": 101,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 102,
+    "fields": {
+      "test": 101,
+      "test_point_number": "PERF-PEC-02",
+      "weight_category": "medium",
+      "cg_category": "Mid",
+      "target_speed": 95,
+      "target_altitude": 3000,
+      "repetition_required": 2,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 104,
+    "fields": {
+      "test_point": 102,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 105,
+    "fields": {
+      "test_point": 102,
+      "name": "Nominal mass",
+      "value": "1300",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 106,
+    "fields": {
+      "test_point": 102,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 103,
+    "fields": {
+      "test": 101,
+      "test_point_number": "PERF-PEC-03",
+      "weight_category": "medium",
+      "cg_category": "Mid",
+      "target_speed": 115,
+      "target_altitude": 3000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 107,
+    "fields": {
+      "test_point": 103,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 108,
+    "fields": {
+      "test_point": 103,
+      "name": "Nominal mass",
+      "value": "1300",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 109,
+    "fields": {
+      "test_point": 103,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "reference_data.fthahazard",
+    "pk": 101,
+    "fields": {
+      "program": 101,
+      "test": 101,
+      "hazard_id": "HAZ-PERF-PEC",
+      "description": "Unreliable performance data or excursion outside planned flight conditions",
+      "cause": "Instrumentation anomaly, unexpected atmosphere, or unanticipated aircraft response.",
+      "consequence": "Invalid test data or elevated flight safety risk.",
+      "mitigation": "Use approved test plan, crew briefing, real-time monitoring, defined abort criteria and recovery margins.",
+      "severity": "TBD",
+      "probability": "TBD",
+      "remarks": "Placeholder hazard; requires formal FTHA approval."
+    }
+  },
+  {
+    "model": "testing.test",
+    "pk": 102,
+    "fields": {
+      "engineering_requirement": 101,
+      "test_number": "PERF-TO",
+      "test_title": "Takeoff Distance Data Collection",
+      "objective": "Record takeoff ground roll and airborne distance under defined conditions.",
+      "special_equipment": "Runway survey, wind measurement, aircraft weight and CG confirmation.",
+      "special_test_requirement": "Demonstration only. Execute no maneuver without aircraft-specific approved test plan, risk assessment and qualified crew.",
+      "test_procedure": "1. Conduct runway and aircraft safety checks.\n2. Confirm conditions and abort criteria in approved test plan.\n3. Execute approved takeoff profile.\n4. Record distance, wind, temperature, power and rotation event.\n5. Compare corrected results with approved performance analysis.",
+      "pass_fail_criteria": "Demonstration data capture complete; compliance assessment requires approved methodology.",
+      "related_regulation": "14 CFR 23.2115",
+      "remarks": "SYNTHETIC DATA - NOT FOR FLIGHT USE"
+    }
+  },
+  {
+    "model": "testing.testcard",
+    "pk": 102,
+    "fields": {
+      "test": 102,
+      "card_number": "CARD-PERF-TO",
+      "title": "Takeoff Distance Data Collection",
+      "revision": "A",
+      "preparation": "Verify test authorization, aircraft configuration, instrumentation health, weather, area clearance and crew briefing.",
+      "procedure": "1. Conduct runway and aircraft safety checks.\n2. Confirm conditions and abort criteria in approved test plan.\n3. Execute approved takeoff profile.\n4. Record distance, wind, temperature, power and rotation event.\n5. Compare corrected results with approved performance analysis.",
+      "safety_notes": "DEMONSTRATION ONLY - NOT FOR FLIGHT USE. Apply aircraft-specific limitations, risk controls, abort and recovery procedures from approved documents.",
+      "remarks": "No approved flight envelope, safety margins or certification evidence provided."
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 104,
+    "fields": {
+      "test": 102,
+      "test_point_number": "PERF-TO-01",
+      "weight_category": "light",
+      "cg_category": "Mid",
+      "target_speed": null,
+      "target_altitude": 0,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 110,
+    "fields": {
+      "test_point": 104,
+      "name": "Configuration",
+      "value": "Test-specific",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 111,
+    "fields": {
+      "test_point": 104,
+      "name": "Nominal mass",
+      "value": "1150",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 112,
+    "fields": {
+      "test_point": 104,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 105,
+    "fields": {
+      "test": 102,
+      "test_point_number": "PERF-TO-02",
+      "weight_category": "heavy",
+      "cg_category": "Mid",
+      "target_speed": null,
+      "target_altitude": 0,
+      "repetition_required": 2,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 113,
+    "fields": {
+      "test_point": 105,
+      "name": "Configuration",
+      "value": "Test-specific",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 114,
+    "fields": {
+      "test_point": 105,
+      "name": "Nominal mass",
+      "value": "1450",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 115,
+    "fields": {
+      "test_point": 105,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 106,
+    "fields": {
+      "test": 102,
+      "test_point_number": "PERF-TO-03",
+      "weight_category": "heavy",
+      "cg_category": "Mid",
+      "target_speed": null,
+      "target_altitude": 2000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 116,
+    "fields": {
+      "test_point": 106,
+      "name": "Configuration",
+      "value": "Test-specific",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 117,
+    "fields": {
+      "test_point": 106,
+      "name": "Nominal mass",
+      "value": "1450",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 118,
+    "fields": {
+      "test_point": 106,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "reference_data.fthahazard",
+    "pk": 102,
+    "fields": {
+      "program": 101,
+      "test": 102,
+      "hazard_id": "HAZ-PERF-TO",
+      "description": "Unreliable performance data or excursion outside planned flight conditions",
+      "cause": "Instrumentation anomaly, unexpected atmosphere, or unanticipated aircraft response.",
+      "consequence": "Invalid test data or elevated flight safety risk.",
+      "mitigation": "Use approved test plan, crew briefing, real-time monitoring, defined abort criteria and recovery margins.",
+      "severity": "TBD",
+      "probability": "TBD",
+      "remarks": "Placeholder hazard; requires formal FTHA approval."
+    }
+  },
+  {
+    "model": "testing.test",
+    "pk": 103,
+    "fields": {
+      "engineering_requirement": 101,
+      "test_number": "PERF-CLB",
+      "test_title": "Climb Performance - Sawtooth",
+      "objective": "Collect climb segments to estimate climb rate and excess power.",
+      "special_equipment": "Calibrated air data and propulsion power measurements.",
+      "special_test_requirement": "Demonstration only. Execute no maneuver without aircraft-specific approved test plan, risk assessment and qualified crew.",
+      "test_procedure": "1. Verify approved altitude band and speed schedule.\n2. Stabilize at the lower test altitude.\n3. Conduct approved climb segment at target speed.\n4. Record airspeed, altitude, temperature and power.\n5. Repeat and evaluate atmospheric corrections.",
+      "pass_fail_criteria": "Repeatability and model correlation assessed against program-approved thresholds.",
+      "related_regulation": "14 CFR 23.2120; 23.2125",
+      "remarks": "SYNTHETIC DATA - NOT FOR FLIGHT USE"
+    }
+  },
+  {
+    "model": "testing.testcard",
+    "pk": 103,
+    "fields": {
+      "test": 103,
+      "card_number": "CARD-PERF-CLB",
+      "title": "Climb Performance - Sawtooth",
+      "revision": "A",
+      "preparation": "Verify test authorization, aircraft configuration, instrumentation health, weather, area clearance and crew briefing.",
+      "procedure": "1. Verify approved altitude band and speed schedule.\n2. Stabilize at the lower test altitude.\n3. Conduct approved climb segment at target speed.\n4. Record airspeed, altitude, temperature and power.\n5. Repeat and evaluate atmospheric corrections.",
+      "safety_notes": "DEMONSTRATION ONLY - NOT FOR FLIGHT USE. Apply aircraft-specific limitations, risk controls, abort and recovery procedures from approved documents.",
+      "remarks": "No approved flight envelope, safety margins or certification evidence provided."
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 107,
+    "fields": {
+      "test": 103,
+      "test_point_number": "PERF-CLB-01",
+      "weight_category": "heavy",
+      "cg_category": "Mid",
+      "target_speed": 80,
+      "target_altitude": 3000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 119,
+    "fields": {
+      "test_point": 107,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 120,
+    "fields": {
+      "test_point": 107,
+      "name": "Nominal mass",
+      "value": "1450",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 121,
+    "fields": {
+      "test_point": 107,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 108,
+    "fields": {
+      "test": 103,
+      "test_point_number": "PERF-CLB-02",
+      "weight_category": "heavy",
+      "cg_category": "Mid",
+      "target_speed": 90,
+      "target_altitude": 5000,
+      "repetition_required": 2,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 122,
+    "fields": {
+      "test_point": 108,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 123,
+    "fields": {
+      "test_point": 108,
+      "name": "Nominal mass",
+      "value": "1450",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 124,
+    "fields": {
+      "test_point": 108,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 109,
+    "fields": {
+      "test": 103,
+      "test_point_number": "PERF-CLB-03",
+      "weight_category": "heavy",
+      "cg_category": "Mid",
+      "target_speed": 100,
+      "target_altitude": 7000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 125,
+    "fields": {
+      "test_point": 109,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 126,
+    "fields": {
+      "test_point": 109,
+      "name": "Nominal mass",
+      "value": "1450",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 127,
+    "fields": {
+      "test_point": 109,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "reference_data.fthahazard",
+    "pk": 103,
+    "fields": {
+      "program": 101,
+      "test": 103,
+      "hazard_id": "HAZ-PERF-CLB",
+      "description": "Unreliable performance data or excursion outside planned flight conditions",
+      "cause": "Instrumentation anomaly, unexpected atmosphere, or unanticipated aircraft response.",
+      "consequence": "Invalid test data or elevated flight safety risk.",
+      "mitigation": "Use approved test plan, crew briefing, real-time monitoring, defined abort criteria and recovery margins.",
+      "severity": "TBD",
+      "probability": "TBD",
+      "remarks": "Placeholder hazard; requires formal FTHA approval."
+    }
+  },
+  {
+    "model": "testing.test",
+    "pk": 104,
+    "fields": {
+      "engineering_requirement": 101,
+      "test_number": "PERF-LVL",
+      "test_title": "Level Flight Performance",
+      "objective": "Collect stabilized level-flight points for power-required and speed relationships.",
+      "special_equipment": "Power and fuel-flow or energy measurements as applicable.",
+      "special_test_requirement": "Demonstration only. Execute no maneuver without aircraft-specific approved test plan, risk assessment and qualified crew.",
+      "test_procedure": "1. Establish assigned altitude and configuration.\n2. Stabilize speed and altitude.\n3. Record steady-state power and air data.\n4. Repeat at assigned speeds.\n5. Review stationarity and data quality.",
+      "pass_fail_criteria": "Steady-state segments meet approved data-quality criteria; no inferred certification pass.",
+      "related_regulation": "14 CFR 23.2105",
+      "remarks": "SYNTHETIC DATA - NOT FOR FLIGHT USE"
+    }
+  },
+  {
+    "model": "testing.testcard",
+    "pk": 104,
+    "fields": {
+      "test": 104,
+      "card_number": "CARD-PERF-LVL",
+      "title": "Level Flight Performance",
+      "revision": "A",
+      "preparation": "Verify test authorization, aircraft configuration, instrumentation health, weather, area clearance and crew briefing.",
+      "procedure": "1. Establish assigned altitude and configuration.\n2. Stabilize speed and altitude.\n3. Record steady-state power and air data.\n4. Repeat at assigned speeds.\n5. Review stationarity and data quality.",
+      "safety_notes": "DEMONSTRATION ONLY - NOT FOR FLIGHT USE. Apply aircraft-specific limitations, risk controls, abort and recovery procedures from approved documents.",
+      "remarks": "No approved flight envelope, safety margins or certification evidence provided."
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 110,
+    "fields": {
+      "test": 104,
+      "test_point_number": "PERF-LVL-01",
+      "weight_category": "medium",
+      "cg_category": "Mid",
+      "target_speed": 85,
+      "target_altitude": 5000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 128,
+    "fields": {
+      "test_point": 110,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 129,
+    "fields": {
+      "test_point": 110,
+      "name": "Nominal mass",
+      "value": "1300",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 130,
+    "fields": {
+      "test_point": 110,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 111,
+    "fields": {
+      "test": 104,
+      "test_point_number": "PERF-LVL-02",
+      "weight_category": "medium",
+      "cg_category": "Mid",
+      "target_speed": 105,
+      "target_altitude": 5000,
+      "repetition_required": 2,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 131,
+    "fields": {
+      "test_point": 111,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 132,
+    "fields": {
+      "test_point": 111,
+      "name": "Nominal mass",
+      "value": "1300",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 133,
+    "fields": {
+      "test_point": 111,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 112,
+    "fields": {
+      "test": 104,
+      "test_point_number": "PERF-LVL-03",
+      "weight_category": "medium",
+      "cg_category": "Mid",
+      "target_speed": 125,
+      "target_altitude": 5000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 134,
+    "fields": {
+      "test_point": 112,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 135,
+    "fields": {
+      "test_point": 112,
+      "name": "Nominal mass",
+      "value": "1300",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 136,
+    "fields": {
+      "test_point": 112,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "reference_data.fthahazard",
+    "pk": 104,
+    "fields": {
+      "program": 101,
+      "test": 104,
+      "hazard_id": "HAZ-PERF-LVL",
+      "description": "Unreliable performance data or excursion outside planned flight conditions",
+      "cause": "Instrumentation anomaly, unexpected atmosphere, or unanticipated aircraft response.",
+      "consequence": "Invalid test data or elevated flight safety risk.",
+      "mitigation": "Use approved test plan, crew briefing, real-time monitoring, defined abort criteria and recovery margins.",
+      "severity": "TBD",
+      "probability": "TBD",
+      "remarks": "Placeholder hazard; requires formal FTHA approval."
+    }
+  },
+  {
+    "model": "testing.test",
+    "pk": 105,
+    "fields": {
+      "engineering_requirement": 101,
+      "test_number": "PERF-DES",
+      "test_title": "Descent Performance",
+      "objective": "Record steady descent characteristics and speed schedule data.",
+      "special_equipment": "Flight path and air-data recording.",
+      "special_test_requirement": "Demonstration only. Execute no maneuver without aircraft-specific approved test plan, risk assessment and qualified crew.",
+      "test_procedure": "1. Verify assigned descent corridor and recovery margins.\n2. Stabilize at the test condition.\n3. Record airspeed, sink rate and power.\n4. Recover at the planned altitude.\n5. Validate data completeness.",
+      "pass_fail_criteria": "Data quality assessed against approved project criteria.",
+      "related_regulation": "14 CFR 23.2105",
+      "remarks": "SYNTHETIC DATA - NOT FOR FLIGHT USE"
+    }
+  },
+  {
+    "model": "testing.testcard",
+    "pk": 105,
+    "fields": {
+      "test": 105,
+      "card_number": "CARD-PERF-DES",
+      "title": "Descent Performance",
+      "revision": "A",
+      "preparation": "Verify test authorization, aircraft configuration, instrumentation health, weather, area clearance and crew briefing.",
+      "procedure": "1. Verify assigned descent corridor and recovery margins.\n2. Stabilize at the test condition.\n3. Record airspeed, sink rate and power.\n4. Recover at the planned altitude.\n5. Validate data completeness.",
+      "safety_notes": "DEMONSTRATION ONLY - NOT FOR FLIGHT USE. Apply aircraft-specific limitations, risk controls, abort and recovery procedures from approved documents.",
+      "remarks": "No approved flight envelope, safety margins or certification evidence provided."
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 113,
+    "fields": {
+      "test": 105,
+      "test_point_number": "PERF-DES-01",
+      "weight_category": "medium",
+      "cg_category": "Mid",
+      "target_speed": 85,
+      "target_altitude": 6000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 137,
+    "fields": {
+      "test_point": 113,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 138,
+    "fields": {
+      "test_point": 113,
+      "name": "Nominal mass",
+      "value": "1300",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 139,
+    "fields": {
+      "test_point": 113,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 114,
+    "fields": {
+      "test": 105,
+      "test_point_number": "PERF-DES-02",
+      "weight_category": "medium",
+      "cg_category": "Mid",
+      "target_speed": 100,
+      "target_altitude": 5000,
+      "repetition_required": 2,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 140,
+    "fields": {
+      "test_point": 114,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 141,
+    "fields": {
+      "test_point": 114,
+      "name": "Nominal mass",
+      "value": "1300",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 142,
+    "fields": {
+      "test_point": 114,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 115,
+    "fields": {
+      "test": 105,
+      "test_point_number": "PERF-DES-03",
+      "weight_category": "medium",
+      "cg_category": "Mid",
+      "target_speed": 115,
+      "target_altitude": 4000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 143,
+    "fields": {
+      "test_point": 115,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 144,
+    "fields": {
+      "test_point": 115,
+      "name": "Nominal mass",
+      "value": "1300",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 145,
+    "fields": {
+      "test_point": 115,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "reference_data.fthahazard",
+    "pk": 105,
+    "fields": {
+      "program": 101,
+      "test": 105,
+      "hazard_id": "HAZ-PERF-DES",
+      "description": "Unreliable performance data or excursion outside planned flight conditions",
+      "cause": "Instrumentation anomaly, unexpected atmosphere, or unanticipated aircraft response.",
+      "consequence": "Invalid test data or elevated flight safety risk.",
+      "mitigation": "Use approved test plan, crew briefing, real-time monitoring, defined abort criteria and recovery margins.",
+      "severity": "TBD",
+      "probability": "TBD",
+      "remarks": "Placeholder hazard; requires formal FTHA approval."
+    }
+  },
+  {
+    "model": "testing.test",
+    "pk": 106,
+    "fields": {
+      "engineering_requirement": 101,
+      "test_number": "PERF-LDG",
+      "test_title": "Landing Performance Data Collection",
+      "objective": "Collect landing distance and approach condition data for performance analysis.",
+      "special_equipment": "Runway survey, braking system checks and wind measurement.",
+      "special_test_requirement": "Demonstration only. Execute no maneuver without aircraft-specific approved test plan, risk assessment and qualified crew.",
+      "test_procedure": "1. Verify approved landing configuration and conditions.\n2. Stabilize on the approved approach.\n3. Record threshold crossing and touchdown events.\n4. Measure ground roll and braking data.\n5. Review landing performance corrections.",
+      "pass_fail_criteria": "Demonstration acquisition complete; approved landing distance determination is separate.",
+      "related_regulation": "14 CFR 23.2130",
+      "remarks": "SYNTHETIC DATA - NOT FOR FLIGHT USE"
+    }
+  },
+  {
+    "model": "testing.testcard",
+    "pk": 106,
+    "fields": {
+      "test": 106,
+      "card_number": "CARD-PERF-LDG",
+      "title": "Landing Performance Data Collection",
+      "revision": "A",
+      "preparation": "Verify test authorization, aircraft configuration, instrumentation health, weather, area clearance and crew briefing.",
+      "procedure": "1. Verify approved landing configuration and conditions.\n2. Stabilize on the approved approach.\n3. Record threshold crossing and touchdown events.\n4. Measure ground roll and braking data.\n5. Review landing performance corrections.",
+      "safety_notes": "DEMONSTRATION ONLY - NOT FOR FLIGHT USE. Apply aircraft-specific limitations, risk controls, abort and recovery procedures from approved documents.",
+      "remarks": "No approved flight envelope, safety margins or certification evidence provided."
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 116,
+    "fields": {
+      "test": 106,
+      "test_point_number": "PERF-LDG-01",
+      "weight_category": "light",
+      "cg_category": "Mid",
+      "target_speed": 70,
+      "target_altitude": 0,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 146,
+    "fields": {
+      "test_point": 116,
+      "name": "Configuration",
+      "value": "Test-specific",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 147,
+    "fields": {
+      "test_point": 116,
+      "name": "Nominal mass",
+      "value": "1150",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 148,
+    "fields": {
+      "test_point": 116,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 117,
+    "fields": {
+      "test": 106,
+      "test_point_number": "PERF-LDG-02",
+      "weight_category": "heavy",
+      "cg_category": "Mid",
+      "target_speed": 75,
+      "target_altitude": 0,
+      "repetition_required": 2,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 149,
+    "fields": {
+      "test_point": 117,
+      "name": "Configuration",
+      "value": "Test-specific",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 150,
+    "fields": {
+      "test_point": 117,
+      "name": "Nominal mass",
+      "value": "1450",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 151,
+    "fields": {
+      "test_point": 117,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 118,
+    "fields": {
+      "test": 106,
+      "test_point_number": "PERF-LDG-03",
+      "weight_category": "heavy",
+      "cg_category": "Mid",
+      "target_speed": 80,
+      "target_altitude": 2000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 152,
+    "fields": {
+      "test_point": 118,
+      "name": "Configuration",
+      "value": "Test-specific",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 153,
+    "fields": {
+      "test_point": 118,
+      "name": "Nominal mass",
+      "value": "1450",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 154,
+    "fields": {
+      "test_point": 118,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "reference_data.fthahazard",
+    "pk": 106,
+    "fields": {
+      "program": 101,
+      "test": 106,
+      "hazard_id": "HAZ-PERF-LDG",
+      "description": "Unreliable performance data or excursion outside planned flight conditions",
+      "cause": "Instrumentation anomaly, unexpected atmosphere, or unanticipated aircraft response.",
+      "consequence": "Invalid test data or elevated flight safety risk.",
+      "mitigation": "Use approved test plan, crew briefing, real-time monitoring, defined abort criteria and recovery margins.",
+      "severity": "TBD",
+      "probability": "TBD",
+      "remarks": "Placeholder hazard; requires formal FTHA approval."
+    }
+  },
+  {
+    "model": "testing.test",
+    "pk": 107,
+    "fields": {
+      "engineering_requirement": 102,
+      "test_number": "FC-STALL",
+      "test_title": "Stall Characteristics and Warning",
+      "objective": "Document warning behavior and qualitative handling in approved configurations.",
+      "special_equipment": "Approved stall test plan, recovery altitude and chase/support as required.",
+      "special_test_requirement": "Demonstration only. Execute no maneuver without aircraft-specific approved test plan, risk assessment and qualified crew.",
+      "test_procedure": "1. Conduct approved safety briefing and configuration checks.\n2. Establish test entry conditions with recovery margin.\n3. Execute only the approved stall approach maneuver.\n4. Record warning, response and recovery characteristics.\n5. Recover immediately on any abort criterion.",
+      "pass_fail_criteria": "Requires approved handling qualities and warning evaluation; no generic numerical pass criterion.",
+      "related_regulation": "14 CFR 23.2110; 23.2150",
+      "remarks": "SYNTHETIC DATA - NOT FOR FLIGHT USE"
+    }
+  },
+  {
+    "model": "testing.testcard",
+    "pk": 107,
+    "fields": {
+      "test": 107,
+      "card_number": "CARD-FC-STALL",
+      "title": "Stall Characteristics and Warning",
+      "revision": "A",
+      "preparation": "Verify test authorization, aircraft configuration, instrumentation health, weather, area clearance and crew briefing.",
+      "procedure": "1. Conduct approved safety briefing and configuration checks.\n2. Establish test entry conditions with recovery margin.\n3. Execute only the approved stall approach maneuver.\n4. Record warning, response and recovery characteristics.\n5. Recover immediately on any abort criterion.",
+      "safety_notes": "DEMONSTRATION ONLY - NOT FOR FLIGHT USE. Apply aircraft-specific limitations, risk controls, abort and recovery procedures from approved documents.",
+      "remarks": "No approved flight envelope, safety margins or certification evidence provided."
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 119,
+    "fields": {
+      "test": 107,
+      "test_point_number": "FC-STALL-01",
+      "weight_category": "light",
+      "cg_category": "Forward",
+      "target_speed": 65,
+      "target_altitude": 5000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 155,
+    "fields": {
+      "test_point": 119,
+      "name": "Configuration",
+      "value": "Test-specific",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 156,
+    "fields": {
+      "test_point": 119,
+      "name": "Nominal mass",
+      "value": "1150",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 157,
+    "fields": {
+      "test_point": 119,
+      "name": "Nominal CG",
+      "value": "Forward",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 120,
+    "fields": {
+      "test": 107,
+      "test_point_number": "FC-STALL-02",
+      "weight_category": "medium",
+      "cg_category": "Mid",
+      "target_speed": 70,
+      "target_altitude": 6000,
+      "repetition_required": 2,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 158,
+    "fields": {
+      "test_point": 120,
+      "name": "Configuration",
+      "value": "Test-specific",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 159,
+    "fields": {
+      "test_point": 120,
+      "name": "Nominal mass",
+      "value": "1300",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 160,
+    "fields": {
+      "test_point": 120,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 121,
+    "fields": {
+      "test": 107,
+      "test_point_number": "FC-STALL-03",
+      "weight_category": "heavy",
+      "cg_category": "Aft",
+      "target_speed": 75,
+      "target_altitude": 7000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 161,
+    "fields": {
+      "test_point": 121,
+      "name": "Configuration",
+      "value": "Test-specific",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 162,
+    "fields": {
+      "test_point": 121,
+      "name": "Nominal mass",
+      "value": "1450",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 163,
+    "fields": {
+      "test_point": 121,
+      "name": "Nominal CG",
+      "value": "Aft",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "reference_data.fthahazard",
+    "pk": 107,
+    "fields": {
+      "program": 101,
+      "test": 107,
+      "hazard_id": "HAZ-FC-STALL",
+      "description": "Loss of aircraft control or departure from approved envelope",
+      "cause": "Instrumentation anomaly, unexpected atmosphere, or unanticipated aircraft response.",
+      "consequence": "Invalid test data or elevated flight safety risk.",
+      "mitigation": "Use approved test plan, crew briefing, real-time monitoring, defined abort criteria and recovery margins.",
+      "severity": "TBD",
+      "probability": "TBD",
+      "remarks": "Placeholder hazard; requires formal FTHA approval."
+    }
+  },
+  {
+    "model": "testing.test",
+    "pk": 108,
+    "fields": {
+      "engineering_requirement": 102,
+      "test_number": "FC-CTRL",
+      "test_title": "Controllability and Maneuvering",
+      "objective": "Evaluate qualitative controllability within a predefined safe envelope.",
+      "special_equipment": "Approved maneuver limits and safety pilot brief.",
+      "special_test_requirement": "Demonstration only. Execute no maneuver without aircraft-specific approved test plan, risk assessment and qualified crew.",
+      "test_procedure": "1. Verify the approved maneuver envelope.\n2. Stabilize at assigned condition.\n3. Perform small, approved control inputs.\n4. Record response and control effort.\n5. Return to trimmed condition and debrief.",
+      "pass_fail_criteria": "Qualitative and quantitative evaluation requires approved handling criteria.",
+      "related_regulation": "14 CFR 23.2135",
+      "remarks": "SYNTHETIC DATA - NOT FOR FLIGHT USE"
+    }
+  },
+  {
+    "model": "testing.testcard",
+    "pk": 108,
+    "fields": {
+      "test": 108,
+      "card_number": "CARD-FC-CTRL",
+      "title": "Controllability and Maneuvering",
+      "revision": "A",
+      "preparation": "Verify test authorization, aircraft configuration, instrumentation health, weather, area clearance and crew briefing.",
+      "procedure": "1. Verify the approved maneuver envelope.\n2. Stabilize at assigned condition.\n3. Perform small, approved control inputs.\n4. Record response and control effort.\n5. Return to trimmed condition and debrief.",
+      "safety_notes": "DEMONSTRATION ONLY - NOT FOR FLIGHT USE. Apply aircraft-specific limitations, risk controls, abort and recovery procedures from approved documents.",
+      "remarks": "No approved flight envelope, safety margins or certification evidence provided."
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 122,
+    "fields": {
+      "test": 108,
+      "test_point_number": "FC-CTRL-01",
+      "weight_category": "light",
+      "cg_category": "Forward",
+      "target_speed": 85,
+      "target_altitude": 5000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 164,
+    "fields": {
+      "test_point": 122,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 165,
+    "fields": {
+      "test_point": 122,
+      "name": "Nominal mass",
+      "value": "1150",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 166,
+    "fields": {
+      "test_point": 122,
+      "name": "Nominal CG",
+      "value": "Forward",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 123,
+    "fields": {
+      "test": 108,
+      "test_point_number": "FC-CTRL-02",
+      "weight_category": "medium",
+      "cg_category": "Mid",
+      "target_speed": 100,
+      "target_altitude": 5000,
+      "repetition_required": 2,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 167,
+    "fields": {
+      "test_point": 123,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 168,
+    "fields": {
+      "test_point": 123,
+      "name": "Nominal mass",
+      "value": "1300",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 169,
+    "fields": {
+      "test_point": 123,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 124,
+    "fields": {
+      "test": 108,
+      "test_point_number": "FC-CTRL-03",
+      "weight_category": "heavy",
+      "cg_category": "Aft",
+      "target_speed": 115,
+      "target_altitude": 5000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 170,
+    "fields": {
+      "test_point": 124,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 171,
+    "fields": {
+      "test_point": 124,
+      "name": "Nominal mass",
+      "value": "1450",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 172,
+    "fields": {
+      "test_point": 124,
+      "name": "Nominal CG",
+      "value": "Aft",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "reference_data.fthahazard",
+    "pk": 108,
+    "fields": {
+      "program": 101,
+      "test": 108,
+      "hazard_id": "HAZ-FC-CTRL",
+      "description": "Loss of aircraft control or departure from approved envelope",
+      "cause": "Instrumentation anomaly, unexpected atmosphere, or unanticipated aircraft response.",
+      "consequence": "Invalid test data or elevated flight safety risk.",
+      "mitigation": "Use approved test plan, crew briefing, real-time monitoring, defined abort criteria and recovery margins.",
+      "severity": "TBD",
+      "probability": "TBD",
+      "remarks": "Placeholder hazard; requires formal FTHA approval."
+    }
+  },
+  {
+    "model": "testing.test",
+    "pk": 109,
+    "fields": {
+      "engineering_requirement": 102,
+      "test_number": "FC-TRIM",
+      "test_title": "Longitudinal and Lateral Trim",
+      "objective": "Assess available trim and residual control force over selected conditions.",
+      "special_equipment": "Control force measurement where available.",
+      "special_test_requirement": "Demonstration only. Execute no maneuver without aircraft-specific approved test plan, risk assessment and qualified crew.",
+      "test_procedure": "1. Establish assigned speed and configuration.\n2. Stabilize and trim the aircraft.\n3. Record trim position and residual force.\n4. Repeat at assigned speed.\n5. Review control authority margins.",
+      "pass_fail_criteria": "Trim acceptability requires approved program-specific criteria.",
+      "related_regulation": "14 CFR 23.2140",
+      "remarks": "SYNTHETIC DATA - NOT FOR FLIGHT USE"
+    }
+  },
+  {
+    "model": "testing.testcard",
+    "pk": 109,
+    "fields": {
+      "test": 109,
+      "card_number": "CARD-FC-TRIM",
+      "title": "Longitudinal and Lateral Trim",
+      "revision": "A",
+      "preparation": "Verify test authorization, aircraft configuration, instrumentation health, weather, area clearance and crew briefing.",
+      "procedure": "1. Establish assigned speed and configuration.\n2. Stabilize and trim the aircraft.\n3. Record trim position and residual force.\n4. Repeat at assigned speed.\n5. Review control authority margins.",
+      "safety_notes": "DEMONSTRATION ONLY - NOT FOR FLIGHT USE. Apply aircraft-specific limitations, risk controls, abort and recovery procedures from approved documents.",
+      "remarks": "No approved flight envelope, safety margins or certification evidence provided."
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 125,
+    "fields": {
+      "test": 109,
+      "test_point_number": "FC-TRIM-01",
+      "weight_category": "light",
+      "cg_category": "Forward",
+      "target_speed": 80,
+      "target_altitude": 4000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 173,
+    "fields": {
+      "test_point": 125,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 174,
+    "fields": {
+      "test_point": 125,
+      "name": "Nominal mass",
+      "value": "1150",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 175,
+    "fields": {
+      "test_point": 125,
+      "name": "Nominal CG",
+      "value": "Forward",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 126,
+    "fields": {
+      "test": 109,
+      "test_point_number": "FC-TRIM-02",
+      "weight_category": "medium",
+      "cg_category": "Mid",
+      "target_speed": 100,
+      "target_altitude": 4000,
+      "repetition_required": 2,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 176,
+    "fields": {
+      "test_point": 126,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 177,
+    "fields": {
+      "test_point": 126,
+      "name": "Nominal mass",
+      "value": "1300",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 178,
+    "fields": {
+      "test_point": 126,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 127,
+    "fields": {
+      "test": 109,
+      "test_point_number": "FC-TRIM-03",
+      "weight_category": "heavy",
+      "cg_category": "Aft",
+      "target_speed": 120,
+      "target_altitude": 4000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 179,
+    "fields": {
+      "test_point": 127,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 180,
+    "fields": {
+      "test_point": 127,
+      "name": "Nominal mass",
+      "value": "1450",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 181,
+    "fields": {
+      "test_point": 127,
+      "name": "Nominal CG",
+      "value": "Aft",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "reference_data.fthahazard",
+    "pk": 109,
+    "fields": {
+      "program": 101,
+      "test": 109,
+      "hazard_id": "HAZ-FC-TRIM",
+      "description": "Loss of aircraft control or departure from approved envelope",
+      "cause": "Instrumentation anomaly, unexpected atmosphere, or unanticipated aircraft response.",
+      "consequence": "Invalid test data or elevated flight safety risk.",
+      "mitigation": "Use approved test plan, crew briefing, real-time monitoring, defined abort criteria and recovery margins.",
+      "severity": "TBD",
+      "probability": "TBD",
+      "remarks": "Placeholder hazard; requires formal FTHA approval."
+    }
+  },
+  {
+    "model": "testing.test",
+    "pk": 110,
+    "fields": {
+      "engineering_requirement": 102,
+      "test_number": "FC-STAB",
+      "test_title": "Longitudinal Static Stability",
+      "objective": "Collect stabilized stick-force or control-position trends versus speed.",
+      "special_equipment": "Approved perturbation amplitude and safety margins.",
+      "special_test_requirement": "Demonstration only. Execute no maneuver without aircraft-specific approved test plan, risk assessment and qualified crew.",
+      "test_procedure": "1. Trim at the assigned reference condition.\n2. Apply only approved small speed perturbations.\n3. Record control force or position and speed.\n4. Recover to reference trim.\n5. Analyze trends after flight.",
+      "pass_fail_criteria": "Stability trends reviewed using approved evaluation criteria.",
+      "related_regulation": "14 CFR 23.2145",
+      "remarks": "SYNTHETIC DATA - NOT FOR FLIGHT USE"
+    }
+  },
+  {
+    "model": "testing.testcard",
+    "pk": 110,
+    "fields": {
+      "test": 110,
+      "card_number": "CARD-FC-STAB",
+      "title": "Longitudinal Static Stability",
+      "revision": "A",
+      "preparation": "Verify test authorization, aircraft configuration, instrumentation health, weather, area clearance and crew briefing.",
+      "procedure": "1. Trim at the assigned reference condition.\n2. Apply only approved small speed perturbations.\n3. Record control force or position and speed.\n4. Recover to reference trim.\n5. Analyze trends after flight.",
+      "safety_notes": "DEMONSTRATION ONLY - NOT FOR FLIGHT USE. Apply aircraft-specific limitations, risk controls, abort and recovery procedures from approved documents.",
+      "remarks": "No approved flight envelope, safety margins or certification evidence provided."
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 128,
+    "fields": {
+      "test": 110,
+      "test_point_number": "FC-STAB-01",
+      "weight_category": "light",
+      "cg_category": "Forward",
+      "target_speed": 85,
+      "target_altitude": 6000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 182,
+    "fields": {
+      "test_point": 128,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 183,
+    "fields": {
+      "test_point": 128,
+      "name": "Nominal mass",
+      "value": "1150",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 184,
+    "fields": {
+      "test_point": 128,
+      "name": "Nominal CG",
+      "value": "Forward",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 129,
+    "fields": {
+      "test": 110,
+      "test_point_number": "FC-STAB-02",
+      "weight_category": "medium",
+      "cg_category": "Mid",
+      "target_speed": 100,
+      "target_altitude": 6000,
+      "repetition_required": 2,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 185,
+    "fields": {
+      "test_point": 129,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 186,
+    "fields": {
+      "test_point": 129,
+      "name": "Nominal mass",
+      "value": "1300",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 187,
+    "fields": {
+      "test_point": 129,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 130,
+    "fields": {
+      "test": 110,
+      "test_point_number": "FC-STAB-03",
+      "weight_category": "heavy",
+      "cg_category": "Aft",
+      "target_speed": 115,
+      "target_altitude": 6000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 188,
+    "fields": {
+      "test_point": 130,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 189,
+    "fields": {
+      "test_point": 130,
+      "name": "Nominal mass",
+      "value": "1450",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 190,
+    "fields": {
+      "test_point": 130,
+      "name": "Nominal CG",
+      "value": "Aft",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "reference_data.fthahazard",
+    "pk": 110,
+    "fields": {
+      "program": 101,
+      "test": 110,
+      "hazard_id": "HAZ-FC-STAB",
+      "description": "Loss of aircraft control or departure from approved envelope",
+      "cause": "Instrumentation anomaly, unexpected atmosphere, or unanticipated aircraft response.",
+      "consequence": "Invalid test data or elevated flight safety risk.",
+      "mitigation": "Use approved test plan, crew briefing, real-time monitoring, defined abort criteria and recovery margins.",
+      "severity": "TBD",
+      "probability": "TBD",
+      "remarks": "Placeholder hazard; requires formal FTHA approval."
+    }
+  },
+  {
+    "model": "testing.test",
+    "pk": 111,
+    "fields": {
+      "engineering_requirement": 102,
+      "test_number": "FC-LAT",
+      "test_title": "Lateral-Directional Stability",
+      "objective": "Collect response to approved small lateral-directional disturbances.",
+      "special_equipment": "Approved bank and sideslip limits and recovery plan.",
+      "special_test_requirement": "Demonstration only. Execute no maneuver without aircraft-specific approved test plan, risk assessment and qualified crew.",
+      "test_procedure": "1. Establish stabilized condition.\n2. Apply small approved lateral-directional input.\n3. Record sideslip, bank, yaw rate and controls.\n4. Recover to reference condition.\n5. Review response and handling notes.",
+      "pass_fail_criteria": "Response characteristics assessed against approved project criteria.",
+      "related_regulation": "14 CFR 23.2135; 23.2145",
+      "remarks": "SYNTHETIC DATA - NOT FOR FLIGHT USE"
+    }
+  },
+  {
+    "model": "testing.testcard",
+    "pk": 111,
+    "fields": {
+      "test": 111,
+      "card_number": "CARD-FC-LAT",
+      "title": "Lateral-Directional Stability",
+      "revision": "A",
+      "preparation": "Verify test authorization, aircraft configuration, instrumentation health, weather, area clearance and crew briefing.",
+      "procedure": "1. Establish stabilized condition.\n2. Apply small approved lateral-directional input.\n3. Record sideslip, bank, yaw rate and controls.\n4. Recover to reference condition.\n5. Review response and handling notes.",
+      "safety_notes": "DEMONSTRATION ONLY - NOT FOR FLIGHT USE. Apply aircraft-specific limitations, risk controls, abort and recovery procedures from approved documents.",
+      "remarks": "No approved flight envelope, safety margins or certification evidence provided."
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 131,
+    "fields": {
+      "test": 111,
+      "test_point_number": "FC-LAT-01",
+      "weight_category": "light",
+      "cg_category": "Forward",
+      "target_speed": 85,
+      "target_altitude": 6000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 191,
+    "fields": {
+      "test_point": 131,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 192,
+    "fields": {
+      "test_point": 131,
+      "name": "Nominal mass",
+      "value": "1150",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 193,
+    "fields": {
+      "test_point": 131,
+      "name": "Nominal CG",
+      "value": "Forward",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 132,
+    "fields": {
+      "test": 111,
+      "test_point_number": "FC-LAT-02",
+      "weight_category": "medium",
+      "cg_category": "Mid",
+      "target_speed": 100,
+      "target_altitude": 6000,
+      "repetition_required": 2,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 194,
+    "fields": {
+      "test_point": 132,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 195,
+    "fields": {
+      "test_point": 132,
+      "name": "Nominal mass",
+      "value": "1300",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 196,
+    "fields": {
+      "test_point": 132,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 133,
+    "fields": {
+      "test": 111,
+      "test_point_number": "FC-LAT-03",
+      "weight_category": "heavy",
+      "cg_category": "Aft",
+      "target_speed": 115,
+      "target_altitude": 6000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 197,
+    "fields": {
+      "test_point": 133,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 198,
+    "fields": {
+      "test_point": 133,
+      "name": "Nominal mass",
+      "value": "1450",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 199,
+    "fields": {
+      "test_point": 133,
+      "name": "Nominal CG",
+      "value": "Aft",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "reference_data.fthahazard",
+    "pk": 111,
+    "fields": {
+      "program": 101,
+      "test": 111,
+      "hazard_id": "HAZ-FC-LAT",
+      "description": "Loss of aircraft control or departure from approved envelope",
+      "cause": "Instrumentation anomaly, unexpected atmosphere, or unanticipated aircraft response.",
+      "consequence": "Invalid test data or elevated flight safety risk.",
+      "mitigation": "Use approved test plan, crew briefing, real-time monitoring, defined abort criteria and recovery margins.",
+      "severity": "TBD",
+      "probability": "TBD",
+      "remarks": "Placeholder hazard; requires formal FTHA approval."
+    }
+  },
+  {
+    "model": "testing.test",
+    "pk": 112,
+    "fields": {
+      "engineering_requirement": 102,
+      "test_number": "FC-CG",
+      "test_title": "Weight and CG Sensitivity",
+      "objective": "Compare handling and trim data at planned weight and CG cases.",
+      "special_equipment": "Verified loading and CG documentation.",
+      "special_test_requirement": "Demonstration only. Execute no maneuver without aircraft-specific approved test plan, risk assessment and qualified crew.",
+      "test_procedure": "1. Verify approved loading case.\n2. Conduct approved trim and control checks.\n3. Record configuration, CG and aircraft response.\n4. Compare with baseline data.\n5. Review envelope and safety margins.",
+      "pass_fail_criteria": "Data must be reviewed against approved loading and handling criteria.",
+      "related_regulation": "14 CFR 23.2100; 23.2135; 23.2140",
+      "remarks": "SYNTHETIC DATA - NOT FOR FLIGHT USE"
+    }
+  },
+  {
+    "model": "testing.testcard",
+    "pk": 112,
+    "fields": {
+      "test": 112,
+      "card_number": "CARD-FC-CG",
+      "title": "Weight and CG Sensitivity",
+      "revision": "A",
+      "preparation": "Verify test authorization, aircraft configuration, instrumentation health, weather, area clearance and crew briefing.",
+      "procedure": "1. Verify approved loading case.\n2. Conduct approved trim and control checks.\n3. Record configuration, CG and aircraft response.\n4. Compare with baseline data.\n5. Review envelope and safety margins.",
+      "safety_notes": "DEMONSTRATION ONLY - NOT FOR FLIGHT USE. Apply aircraft-specific limitations, risk controls, abort and recovery procedures from approved documents.",
+      "remarks": "No approved flight envelope, safety margins or certification evidence provided."
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 134,
+    "fields": {
+      "test": 112,
+      "test_point_number": "FC-CG-01",
+      "weight_category": "light",
+      "cg_category": "Forward",
+      "target_speed": 95,
+      "target_altitude": 5000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 200,
+    "fields": {
+      "test_point": 134,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 201,
+    "fields": {
+      "test_point": 134,
+      "name": "Nominal mass",
+      "value": "1150",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 202,
+    "fields": {
+      "test_point": 134,
+      "name": "Nominal CG",
+      "value": "Forward",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 135,
+    "fields": {
+      "test": 112,
+      "test_point_number": "FC-CG-02",
+      "weight_category": "medium",
+      "cg_category": "Mid",
+      "target_speed": 95,
+      "target_altitude": 5000,
+      "repetition_required": 2,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 203,
+    "fields": {
+      "test_point": 135,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 204,
+    "fields": {
+      "test_point": 135,
+      "name": "Nominal mass",
+      "value": "1300",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 205,
+    "fields": {
+      "test_point": 135,
+      "name": "Nominal CG",
+      "value": "Mid",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpoint",
+    "pk": 136,
+    "fields": {
+      "test": 112,
+      "test_point_number": "FC-CG-03",
+      "weight_category": "heavy",
+      "cg_category": "Aft",
+      "target_speed": 95,
+      "target_altitude": 5000,
+      "repetition_required": 1,
+      "pass_fail_criteria": "Demonstration data collection only; acceptance requires approved test plan.",
+      "status": "PLANNED",
+      "remarks": "Speed values intended as kt IAS and altitude as ft pressure altitude in this synthetic dataset; fields do not yet store unit FK."
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 206,
+    "fields": {
+      "test_point": 136,
+      "name": "Configuration",
+      "value": "Clean",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 207,
+    "fields": {
+      "test_point": 136,
+      "name": "Nominal mass",
+      "value": "1450",
+      "unit": "kg",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "testing.testpointcondition",
+    "pk": 208,
+    "fields": {
+      "test_point": 136,
+      "name": "Nominal CG",
+      "value": "Aft",
+      "unit": "",
+      "tolerance": "",
+      "remarks": "Synthetic illustrative condition"
+    }
+  },
+  {
+    "model": "reference_data.fthahazard",
+    "pk": 112,
+    "fields": {
+      "program": 101,
+      "test": 112,
+      "hazard_id": "HAZ-FC-CG",
+      "description": "Loss of aircraft control or departure from approved envelope",
+      "cause": "Instrumentation anomaly, unexpected atmosphere, or unanticipated aircraft response.",
+      "consequence": "Invalid test data or elevated flight safety risk.",
+      "mitigation": "Use approved test plan, crew briefing, real-time monitoring, defined abort criteria and recovery margins.",
+      "severity": "TBD",
+      "probability": "TBD",
+      "remarks": "Placeholder hazard; requires formal FTHA approval."
+    }
+  },
+  {
+    "model": "testing.testsequence",
+    "pk": 101,
+    "fields": {
+      "program": 101,
+      "sequence_number": "SEQ-PERF-01",
+      "title": "Performance data collection - PEC and climb",
+      "revision": "A",
+      "planned_date": null,
+      "objective": "Demonstrate planning and PDF export of multiple test points from related engineering tests.",
+      "remarks": "SYNTHETIC sequence. Not approved for operational use. Duration excludes transit, setup and contingency."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 101,
+    "fields": {
+      "sequence": 101,
+      "order": 1,
+      "test_point": 101,
+      "test_card": 101,
+      "estimated_duration_min": 8,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 102,
+    "fields": {
+      "sequence": 101,
+      "order": 2,
+      "test_point": 102,
+      "test_card": 101,
+      "estimated_duration_min": 8,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 103,
+    "fields": {
+      "sequence": 101,
+      "order": 3,
+      "test_point": 107,
+      "test_card": 103,
+      "estimated_duration_min": 8,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 104,
+    "fields": {
+      "sequence": 101,
+      "order": 4,
+      "test_point": 108,
+      "test_card": 103,
+      "estimated_duration_min": 8,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 105,
+    "fields": {
+      "sequence": 101,
+      "order": 5,
+      "test_point": 110,
+      "test_card": 104,
+      "estimated_duration_min": 8,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 106,
+    "fields": {
+      "sequence": 101,
+      "order": 6,
+      "test_point": 111,
+      "test_card": 104,
+      "estimated_duration_min": 8,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequence",
+    "pk": 102,
+    "fields": {
+      "program": 101,
+      "sequence_number": "SEQ-PERF-02",
+      "title": "Performance data collection - takeoff, descent, landing",
+      "revision": "A",
+      "planned_date": null,
+      "objective": "Demonstrate planning and PDF export of multiple test points from related engineering tests.",
+      "remarks": "SYNTHETIC sequence. Not approved for operational use. Duration excludes transit, setup and contingency."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 107,
+    "fields": {
+      "sequence": 102,
+      "order": 1,
+      "test_point": 104,
+      "test_card": 102,
+      "estimated_duration_min": 12,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 108,
+    "fields": {
+      "sequence": 102,
+      "order": 2,
+      "test_point": 105,
+      "test_card": 102,
+      "estimated_duration_min": 12,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 109,
+    "fields": {
+      "sequence": 102,
+      "order": 3,
+      "test_point": 113,
+      "test_card": 105,
+      "estimated_duration_min": 12,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 110,
+    "fields": {
+      "sequence": 102,
+      "order": 4,
+      "test_point": 114,
+      "test_card": 105,
+      "estimated_duration_min": 12,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 111,
+    "fields": {
+      "sequence": 102,
+      "order": 5,
+      "test_point": 116,
+      "test_card": 106,
+      "estimated_duration_min": 12,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 112,
+    "fields": {
+      "sequence": 102,
+      "order": 6,
+      "test_point": 117,
+      "test_card": 106,
+      "estimated_duration_min": 12,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequence",
+    "pk": 103,
+    "fields": {
+      "program": 101,
+      "sequence_number": "SEQ-FC-01",
+      "title": "Flight characteristics - trim, controllability, stability",
+      "revision": "A",
+      "planned_date": null,
+      "objective": "Demonstrate planning and PDF export of multiple test points from related engineering tests.",
+      "remarks": "SYNTHETIC sequence. Not approved for operational use. Duration excludes transit, setup and contingency."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 113,
+    "fields": {
+      "sequence": 103,
+      "order": 1,
+      "test_point": 125,
+      "test_card": 109,
+      "estimated_duration_min": 8,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 114,
+    "fields": {
+      "sequence": 103,
+      "order": 2,
+      "test_point": 126,
+      "test_card": 109,
+      "estimated_duration_min": 8,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 115,
+    "fields": {
+      "sequence": 103,
+      "order": 3,
+      "test_point": 122,
+      "test_card": 108,
+      "estimated_duration_min": 12,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 116,
+    "fields": {
+      "sequence": 103,
+      "order": 4,
+      "test_point": 123,
+      "test_card": 108,
+      "estimated_duration_min": 12,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 117,
+    "fields": {
+      "sequence": 103,
+      "order": 5,
+      "test_point": 128,
+      "test_card": 110,
+      "estimated_duration_min": 8,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 118,
+    "fields": {
+      "sequence": 103,
+      "order": 6,
+      "test_point": 129,
+      "test_card": 110,
+      "estimated_duration_min": 8,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 119,
+    "fields": {
+      "sequence": 103,
+      "order": 7,
+      "test_point": 131,
+      "test_card": 111,
+      "estimated_duration_min": 8,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 120,
+    "fields": {
+      "sequence": 103,
+      "order": 8,
+      "test_point": 132,
+      "test_card": 111,
+      "estimated_duration_min": 8,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequence",
+    "pk": 104,
+    "fields": {
+      "program": 101,
+      "sequence_number": "SEQ-FC-02",
+      "title": "Flight characteristics - stall and CG sensitivity",
+      "revision": "A",
+      "planned_date": null,
+      "objective": "Demonstrate planning and PDF export of multiple test points from related engineering tests.",
+      "remarks": "SYNTHETIC sequence. Not approved for operational use. Duration excludes transit, setup and contingency."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 121,
+    "fields": {
+      "sequence": 104,
+      "order": 1,
+      "test_point": 119,
+      "test_card": 107,
+      "estimated_duration_min": 12,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 122,
+    "fields": {
+      "sequence": 104,
+      "order": 2,
+      "test_point": 120,
+      "test_card": 107,
+      "estimated_duration_min": 12,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 123,
+    "fields": {
+      "sequence": 104,
+      "order": 3,
+      "test_point": 134,
+      "test_card": 112,
+      "estimated_duration_min": 12,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
+  },
+  {
+    "model": "testing.testsequenceitem",
+    "pk": 124,
+    "fields": {
+      "sequence": 104,
+      "order": 4,
+      "test_point": 135,
+      "test_card": 112,
+      "estimated_duration_min": 12,
+      "remarks": "Crew to record actual outcome in flight log (future module)."
+    }
   }
-},
-{
-  "model": "programs.program",
-  "pk": 2,
-  "fields": {
-    "name": "FTMS-DEMO-02",
-    "description": "",
-    "status": "Active"
-  }
-},
-{
-  "model": "programs.aircraft",
-  "pk": 1,
-  "fields": {
-    "program": 1,
-    "aircraft_number": "F001",
-    "registration": "AA0001",
-    "serial_number": "1",
-    "aircraft_type": "Fixed-wing",
-    "remarks": ""
-  }
-},
-{
-  "model": "programs.aircraft",
-  "pk": 2,
-  "fields": {
-    "program": 1,
-    "aircraft_number": "F002",
-    "registration": "AA0002",
-    "serial_number": "2",
-    "aircraft_type": "Fixed-wing",
-    "remarks": ""
-  }
-},
-{
-  "model": "testing.engineeringtestrequirement",
-  "pk": 1,
-  "fields": {
-    "program": 1,
-    "document_number": "ETR-001",
-    "document_title": "Flight Performance Testing",
-    "purpose": "Flight Performance Test Requirements",
-    "remarks": ""
-  }
-},
-{
-  "model": "testing.engineeringtestrequirement",
-  "pk": 2,
-  "fields": {
-    "program": 1,
-    "document_number": "ETR-002",
-    "document_title": "Flight Characteristic Testing",
-    "purpose": "Flight Characteristic Test Requirements",
-    "remarks": ""
-  }
-},
-{
-  "model": "testing.test",
-  "pk": 1,
-  "fields": {
-    "engineering_requirement": 1,
-    "test_number": "TEST-001",
-    "test_title": "Position Error Correction (PEC)",
-    "objective": "Calibrate the pitot static system",
-    "special_equipment": "",
-    "special_test_requirement": "",
-    "test_procedure": "",
-    "pass_fail_criteria": "",
-    "related_regulation": "",
-    "remarks": ""
-  }
-},
-{
-  "model": "testing.test",
-  "pk": 2,
-  "fields": {
-    "engineering_requirement": 1,
-    "test_number": "TEST-002",
-    "test_title": "Climb Performance",
-    "objective": "Evaluate the climb performance of the aircraft",
-    "special_equipment": "",
-    "special_test_requirement": "",
-    "test_procedure": "",
-    "pass_fail_criteria": "",
-    "related_regulation": "",
-    "remarks": ""
-  }
-},
-{
-  "model": "testing.testpoint",
-  "pk": 3,
-  "fields": {
-    "test": 1,
-    "test_point_number": "PEC-001",
-    "weight_category": "heavy",
-    "cg_category": "Forward",
-    "target_speed": 60.0,
-    "target_altitude": 5000.0,
-    "repetition_required": 1,
-    "pass_fail_criteria": "",
-    "status": "PLANNED",
-    "remarks": ""
-  }
-},
-{
-  "model": "testing.testpoint",
-  "pk": 4,
-  "fields": {
-    "test": 1,
-    "test_point_number": "PEC-002",
-    "weight_category": "heavy",
-    "cg_category": "Forward",
-    "target_speed": 80.0,
-    "target_altitude": 5000.0,
-    "repetition_required": 1,
-    "pass_fail_criteria": "",
-    "status": "PLANNED",
-    "remarks": ""
-  }
-},
-{
-  "model": "testing.testpoint",
-  "pk": 5,
-  "fields": {
-    "test": 1,
-    "test_point_number": "PEC-003",
-    "weight_category": "heavy",
-    "cg_category": "Forward",
-    "target_speed": 100.0,
-    "target_altitude": 5000.0,
-    "repetition_required": 1,
-    "pass_fail_criteria": "",
-    "status": "PLANNED",
-    "remarks": ""
-  }
-},
-{
-  "model": "testing.testpoint",
-  "pk": 6,
-  "fields": {
-    "test": 2,
-    "test_point_number": "CLB-001",
-    "weight_category": "heavy",
-    "cg_category": "Forward",
-    "target_speed": 70.0,
-    "target_altitude": 3000.0,
-    "repetition_required": 1,
-    "pass_fail_criteria": "",
-    "status": "PLANNED",
-    "remarks": ""
-  }
-},
-{
-  "model": "testing.testpoint",
-  "pk": 7,
-  "fields": {
-    "test": 2,
-    "test_point_number": "CLB-002",
-    "weight_category": "heavy",
-    "cg_category": "Forward",
-    "target_speed": 5000.0,
-    "target_altitude": null,
-    "repetition_required": 1,
-    "pass_fail_criteria": "",
-    "status": "PLANNED",
-    "remarks": ""
-  }
-},
-{
-  "model": "testing.testpointcondition",
-  "pk": 1,
-  "fields": {
-    "test_point": 6,
-    "name": "Initial Altitude",
-    "value": "3000",
-    "unit": "ft",
-    "tolerance": "",
-    "remarks": ""
-  }
-},
-{
-  "model": "testing.testpointcondition",
-  "pk": 2,
-  "fields": {
-    "test_point": 6,
-    "name": "Final Altitude",
-    "value": "8000",
-    "unit": "ft",
-    "tolerance": "",
-    "remarks": ""
-  }
-},
-{
-  "model": "reference_data.unitdefinition",
-  "pk": 1,
-  "fields": {
-    "quantity": "Speed",
-    "name": "Knot",
-    "symbol": "kt",
-    "to_si_factor": "0.5144444444"
-  }
-},
-{
-  "model": "reference_data.measurementdefinition",
-  "pk": 1,
-  "fields": {
-    "name": "Indicated Airspeed",
-    "code": "IAS",
-    "description": "",
-    "quantity": "Speed",
-    "default_unit": 1
-  }
-},
-{
-  "model": "reference_data.regulation",
-  "pk": 1,
-  "fields": {
-    "code": "14 CFR Part 23",
-    "title": "airworthiness standards for normal-category airplanes",
-    "authority": "FAA",
-    "revision": ""
-  }
-},
-{
-  "model": "reference_data.regulatoryrequirement",
-  "pk": 1,
-  "fields": {
-    "regulation": 1,
-    "section": "23.2005",
-    "description": "Certification of normal category airplanes."
-  }
-},
-{
-  "model": "reference_data.crewmember",
-  "pk": 1,
-  "fields": {
-    "full_name": "Pete Michel",
-    "nickname": "Maverick",
-    "employee_id": "",
-    "organization": "",
-    "active": true
-  }
-},
-{
-  "model": "reference_data.fthahazard",
-  "pk": 1,
-  "fields": {
-    "program": 1,
-    "test": 1,
-    "hazard_id": "HAZ-001",
-    "description": "Loss of airspeed indication",
-    "cause": "",
-    "consequence": "",
-    "mitigation": "check the stand by indication as reference",
-    "severity": "",
-    "probability": "",
-    "remarks": ""
-  }
-}
 ]
