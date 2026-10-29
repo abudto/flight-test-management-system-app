@@ -12,4 +12,14 @@ urlpatterns = [
         views.export_test_matrix,
         name='export_test_matrix',
     ),
+    path(
+        "sequence/<int:sequence_id>/export/pdf/",
+        views.export_sequence_pdf,
+        name="export_sequence_pdf",
+    ),
+    path(
+        "card/<int:card_id>/export/pdf/",
+        views.export_card_pdf,
+        name="export_card_pdf",
+    ),
 ]

@@ -8,6 +8,8 @@ from django.http import HttpResponse
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment
 from openpyxl.utils import get_column_letter
+from .models import TestSequence, TestCard
+from .pdf_exports import generate_sequence_pdf, generate_card_pdf
 
 
 def test_matrix(request, program_id):
@@ -157,4 +159,39 @@ def export_test_matrix(request, program_id):
     # 10. Write workbook to response
     workbook.save(response)
 
+    return response
+
+def export_sequence_pdf(request, sequence_id):
+    sequence = get_object_or_404(
+        TestSequence,
+        pk=sequence_id,
+    )
+
+    pdf_bytes = generate_sequence_pdf(sequence)
+
+    response = HttpResponse(
+        pdf_bytes,
+        content_type="application/pdf",
+    )
+    response["Content-Disposition"] = (
+        f'attachment; filename="FTS_{sequence.pk}_Rev_{sequence.revision}.pdf"'
+    )
+    return response
+
+
+def export_card_pdf(request, card_id):
+    card = get_object_or_404(
+        TestCard,
+        pk=card_id,
+    )
+
+    pdf_bytes = generate_card_pdf(card)
+
+    response = HttpResponse(
+        pdf_bytes,
+        content_type="application/pdf",
+    )
+    response["Content-Disposition"] = (
+        f'attachment; filename="FTC_{card.pk}_Rev_{card.revision}.pdf"'
+    )
     return response
