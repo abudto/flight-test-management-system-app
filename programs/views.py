@@ -1,3 +1,9 @@
 from django.shortcuts import render
 
-# Create your views here.
+from .models import Program
+
+
+def home(request):
+    return render(request, "programs/home.html", {
+        "programs": Program.objects.order_by("name", "pk"),
+    })
