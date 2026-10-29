@@ -198,5 +198,72 @@
     "tolerance": "",
     "remarks": ""
   }
+},
+{
+  "model": "reference_data.unitdefinition",
+  "pk": 1,
+  "fields": {
+    "quantity": "Speed",
+    "name": "Knot",
+    "symbol": "kt",
+    "to_si_factor": "0.5144444444"
+  }
+},
+{
+  "model": "reference_data.measurementdefinition",
+  "pk": 1,
+  "fields": {
+    "name": "Indicated Airspeed",
+    "code": "IAS",
+    "description": "",
+    "quantity": "Speed",
+    "default_unit": 1
+  }
+},
+{
+  "model": "reference_data.regulation",
+  "pk": 1,
+  "fields": {
+    "code": "14 CFR Part 23",
+    "title": "airworthiness standards for normal-category airplanes",
+    "authority": "FAA",
+    "revision": ""
+  }
+},
+{
+  "model": "reference_data.regulatoryrequirement",
+  "pk": 1,
+  "fields": {
+    "regulation": 1,
+    "section": "23.2005",
+    "description": "Certification of normal category airplanes."
+  }
+},
+{
+  "model": "reference_data.crewmember",
+  "pk": 1,
+  "fields": {
+    "full_name": "Pete Michel",
+    "nickname": "Maverick",
+    "employee_id": "",
+    "organization": "",
+    "active": true
+  }
+},
+{
+  "model": "reference_data.fthahazard",
+  "pk": 1,
+  "fields": {
+    "program": 1,
+    "test": 1,
+    "hazard_id": "HAZ-001",
+    "description": "Loss of airspeed indication",
+    "cause": "",
+    "consequence": "",
+    "mitigation": "check the stand by indication as reference",
+    "severity": "",
+    "probability": "",
+    "remarks": ""
+  }
 }
 ]

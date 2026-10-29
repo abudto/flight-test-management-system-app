@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     "programs",
     "testing",
+    "reference_data",
 ]
 
 MIDDLEWARE = [
