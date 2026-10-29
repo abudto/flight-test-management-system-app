@@ -13,22 +13,44 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv(BASE_DIR / ".env")
+def env_bool(name, default=False):
+    """Read an explicit boolean; reject typos instead of enabling debug."""
+    value = os.environ.get(name)
+    if value is None:
+        return default
+    value = value.strip().lower()
+    if value in {"true", "yes", "on", "1"}:
+        return True
+    if value in {"false", "no", "off", "0"}:
+        return False
+    raise ImproperlyConfigured(f"{name} must be a boolean value.")
+
+
+if env_bool("DJANGO_LOAD_DOTENV", default=True):
+    # Existing process variables take precedence over the local file.
+    load_dotenv(BASE_DIR / ".env", override=False)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "")
+if not SECRET_KEY.strip():
+    raise ImproperlyConfigured("DJANGO_SECRET_KEY must be set and non-empty.")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env_bool("DJANGO_DEBUG", default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",")
+    if host.strip()
+]
 
 
 # Application definition
