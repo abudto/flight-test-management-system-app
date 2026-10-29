@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 from programs.models import Program
 from testing.models import Test
+from django.core.exceptions import ValidationError
 
 
 class UnitDefinition(models.Model):
@@ -59,7 +60,7 @@ class RegulatoryRequirement(models.Model):
 
 class CrewMember(models.Model):
     full_name = models.CharField(max_length=150)
-    nickname = models.CharField(max_length=20)
+    nickname = models.CharField(max_length=20, blank=True)
     employee_id = models.CharField(
         max_length=50,
         blank=True
@@ -102,6 +103,26 @@ class FTHAHazard(models.Model):
         blank=True,
     )
     remarks = models.TextField(blank=True)
+
+    def clean(self):
+        super().clean()
+
+        if not self.program_id or not self.test_id:
+            return
+
+        test_program_id = (
+            self.test
+            .engineering_requirement
+            .program_id
+        )
+
+        if test_program_id != self.program_id:
+            raise ValidationError({
+                "test": (
+                    "The selected Test must belong "
+                    "to the same Program as this FTHA hazard."
+                )
+            })
 
     class Meta:
         constraints = [
