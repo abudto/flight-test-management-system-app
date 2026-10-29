@@ -1,0 +1,58 @@
+name: FTMS CI
+
+on:
+  push:
+    branches: [main, feature/ftms-ai]
+  pull_request:
+    branches: [main, feature/ftms-ai]
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Django tests (Python 3.13)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      DJANGO_SETTINGS_MODULE: config.test_settings
+      DJANGO_LOAD_DOTENV: "false"
+      DJANGO_SECRET_KEY: ftms-synthetic-ci-key-not-for-deployment
+      DJANGO_DEBUG: "false"
+      DJANGO_ALLOWED_HOSTS: testserver,localhost,127.0.0.1,[::1]
+      PYTHONDONTWRITEBYTECODE: "1"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+
+      - name: Install dependencies
+        # requirements-dev.txt includes requirements.txt.
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Check dependencies
+        run: python -m pip check
+
+      - name: Django system checks
+        run: python manage.py check --settings=config.test_settings
+
+      - name: Check for missing migrations
+        run: python manage.py makemigrations --check --dry-run --settings=config.test_settings
+
+      - name: Run complete test suite with coverage
+        run: python -m coverage run manage.py test --settings=config.test_settings --verbosity=2 --noinput
+
+      - name: Coverage report
+        if: ${{ !cancelled() }}
+        run: python -m coverage report

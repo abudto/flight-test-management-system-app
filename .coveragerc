@@ -1,0 +1,10 @@
+[run]
+source = programs,testing,reference_data
+omit =
+    */migrations/*
+    */tests.py
+    */test_*.py
+
+[report]
+show_missing = True
+skip_empty = True
