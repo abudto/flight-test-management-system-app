@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 from programs.models import Program
+from django.core.exceptions import ValidationError
 
 
 class EngineeringTestRequirement(models.Model):
@@ -178,6 +179,34 @@ class TestSequenceItem(models.Model):
     )
 
     remarks = models.TextField(blank=True)
+
+    def clean(self):
+        super().clean()
+
+        if not self.sequence_id or not self.test_point_id:
+            return
+
+        point_program_id = (
+            self.test_point.test
+            .engineering_requirement.program_id
+        )
+
+        if point_program_id != self.sequence.program_id:
+            raise ValidationError({
+                "test_point": (
+                    "The selected test point must belong "
+                    "to the same program as the sequence."
+                )
+            })
+
+        if self.test_card_id:
+            if self.test_card.test_id != self.test_point.test_id:
+                raise ValidationError({
+                    "test_card": (
+                        "The selected test card must belong "
+                        "to the same test as the test point."
+                    )
+                })
 
     class Meta:
         ordering = ["order"]
