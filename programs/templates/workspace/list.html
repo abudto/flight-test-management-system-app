@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ resource.title }} | FTMS{% endblock %}
+{% block content %}
+<p class="eyebrow">Engineering planning</p>
+<div class="section-heading"><h1>{{ resource.title }}</h1>{% if can_add %}<a class="button" href="{% url 'record_create' resource_key %}">Create record</a>{% endif %}</div>
+<section class="panel">
+<form method="get" class="filters" role="search">
+    <div><label for="search">Search records</label><input id="search" name="q" value="{{ q }}" type="search"></div>
+    {% if resource.program_path %}<div><label for="program-filter">Program</label><select id="program-filter" name="program"><option value="">All programs</option>{% for program in programs %}<option value="{{ program.pk }}" {% if selected_program == program.pk|stringformat:'s' %}selected{% endif %}>{{ program.name }}</option>{% endfor %}</select></div>{% endif %}
+    <button class="button" type="submit">Filter</button><a href="{% url 'record_list' resource_key %}">Clear</a>
+</form>
+<p class="supporting-copy">{{ page.paginator.count }} record{{ page.paginator.count|pluralize }}</p>
+<div class="table-scroll"><table><caption class="visually-hidden">{{ resource.title }}</caption><thead><tr>{% for header in headers %}<th scope="col">{{ header|capfirst }}</th>{% endfor %}<th scope="col">Details</th></tr></thead><tbody>
+{% for row in rows %}<tr>{% for value in row.values %}<td>{{ value|truncatechars:180 }}</td>{% endfor %}<td><a href="{{ row.url }}">Open<span class="visually-hidden"> record</span></a></td></tr>{% empty %}<tr><td colspan="10" class="empty-state">No matching records. {% if can_add %}Create a record to begin planning.{% endif %}</td></tr>{% endfor %}
+</tbody></table></div>
+{% if page.has_other_pages %}<nav class="actions" aria-label="Pagination">{% if page.has_previous %}<a href="?{{ pagination_query }}&amp;page={{ page.previous_page_number }}">Previous</a>{% endif %} <span>Page {{ page.number }} of {{ page.paginator.num_pages }}</span> {% if page.has_next %}<a href="?{{ pagination_query }}&amp;page={{ page.next_page_number }}">Next</a>{% endif %}</nav>{% endif %}
+</section>
+{% endblock %}

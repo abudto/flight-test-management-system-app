@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ record }} | FTMS{% endblock %}
+{% block content %}
+<a href="{% url 'record_list' resource_key %}">&larr; {{ resource.title }}</a>
+<p class="eyebrow">Planning record</p><h1>{{ record }}</h1>
+<div class="actions">{% if can_change %}<a class="button" href="{% url 'record_edit' resource_key record.pk %}">Edit record</a>{% endif %} {% if export_url %}<a class="button" href="{{ export_url }}">Download {% if resource_key == 'programs' %}Excel matrix{% else %}PDF{% endif %}</a>{% endif %} {% if resource_key == 'programs' %}<a class="button" href="{% url 'test_matrix' record.pk %}">View test matrix</a>{% endif %} {% if can_delete %}<a href="{% url 'record_delete' resource_key record.pk %}">Delete</a>{% endif %}</div>
+{% if resource_key == 'cards' or resource_key == 'sequences' %}<p class="notice">Planning document. Revision labels do not represent approval or an immutable release. Card points are assigned through sequence items.</p>{% endif %}
+<section class="panel"><dl class="record-fields">{% for field in fields %}<dt>{{ field.label|capfirst }}</dt><dd>{% if field.url %}<a href="{{ field.url }}">{{ field.value }}</a>{% else %}{{ field.value|linebreaksbr }}{% endif %}</dd>{% endfor %}</dl></section>
+{% for child in children %}<section class="panel related-panel"><div class="section-heading"><h2>{{ child.title }}</h2>{% if child.can_add %}<a class="button" href="{{ child.add_url }}">Add record</a>{% endif %}</div><ul class="record-links">{% for row in child.records %}<li><a href="{{ row.url }}">{{ row.title }}</a></li>{% empty %}<li class="supporting-copy">No records yet.</li>{% endfor %}</ul></section>{% endfor %}
+{% endblock %}

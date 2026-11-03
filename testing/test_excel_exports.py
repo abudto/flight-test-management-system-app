@@ -1,13 +1,6 @@
-"""Read actual workbook responses, preserving current export behavior.
-
-Known defect: openpyxl interprets user text beginning '=' as a formula. The
-expected-failure test describes the required literal-text behavior; remove its
-marker when the exporter is fixed. It must then pass without data_only=True,
-which would hide formulas behind cached results.
-"""
+"""Inspect actual workbook responses, including literal formula-like text."""
 
 from io import BytesIO
-from unittest import expectedFailure
 
 from django.test import TestCase
 from django.urls import reverse
@@ -129,7 +122,6 @@ class ExcelMatrixExportTests(MatrixDataMixin, TestCase):
         self.assertEqual(sheet.freeze_panes, "A2")
         self.assertEqual(sheet.auto_filter.ref, "A1:M5")
 
-    @expectedFailure
     def test_formula_like_remarks_are_preserved_as_literal_text(self):
         """Known defect: '=1+1' currently becomes an Excel formula cell."""
         self.point_a.remarks = "=1+1"
