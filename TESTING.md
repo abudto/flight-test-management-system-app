@@ -64,6 +64,7 @@ complete historical traceability.
 
 | Module | Scope |
 |---|---|
+| `programs/test_workspace.py` | All resource workflows, authentication, permissions, CSRF, parent locking, and guarded deletion |
 | `programs/tests.py` | Aircraft/program and requirement relationships |
 | `testing/tests.py` | Cross-program points, card compatibility, sequence validation, uniqueness, ordering, deletions |
 | `reference_data/tests.py` | Hazard validation, scoped uniqueness, unit/measurement identity, protected references |
@@ -122,28 +123,21 @@ it does not create migrations. These checks do not run deployment qualification.
 `.coveragerc` measures application line coverage in `programs`, `testing`, and
 `reference_data`, excluding migrations and tests. It does not measure settings,
 template semantics, or branch coverage. There is no minimum percentage gate.
-Expected-failure execution contributes to line coverage, so a high number is not
-proof of correctness. The initial measured baseline was 96% line coverage.
+High line coverage is not proof of correctness. The initial pre-workspace
+measured baseline was 96% line coverage.
 
-## Expected failures and known defects
+## Regression status and scope
 
-The current baseline is 73 discovered tests: 71 passing and two expected failures.
-There should be no unexpected failures or errors.
+The current baseline has 92 passing tests and no expected failures. Formula-like
+Excel remarks remain literal strings; oversized PDF rows split across pages
+without losing the content asserted by the regression test.
 
-| Regression | Intended behavior | Existing defect |
-|---|---|---|
-| `ExcelMatrixExportTests.test_formula_like_remarks_are_preserved_as_literal_text` | `=1+1` remains literal text (`data_type='s'`) | Export writes a formula (`data_type='f'`) |
-| `TestSequencePDFTests.test_oversized_row_exports_without_losing_required_content` | Export succeeds with all required text and rows retained | ReportLab raises `LayoutError` for a row taller than the page |
-
-These tests use `unittest.expectedFailure`. A known failure does not fail the suite;
-an unexpected success does, reminding the developer to remove the marker after a
-fix. A marker can also hide an unrelated failure inside its test, so inspect the
-failure cause when changing surrounding code. Do not mark new failures expected
-merely to make CI green, and do not fix oversized content by silently truncating it.
-
-Unimplemented authorization, release history, or operational workflows are not
-covered by these tests. Their absence is documented in the README rather than
-represented as speculative expected failures.
+Presentation tests use a synthetic superuser. Workspace tests also exercise an
+anonymous client, a view-only account, forged writes, and enforced CSRF checks.
+A complete create/read/edit/delete workflow covers every registered resource.
+Separate cases cover parent locking, cross-program validation, search, filters,
+and refusing deletion of parents with dependants. Tests do not establish
+program-specific authorization, concurrency safety, or document approval.
 
 ## Manual PDF verification
 
@@ -165,11 +159,21 @@ Inspect the PDFs in a viewer and, when relevant, print-preview A4 pages:
    and duration totals with the synthetic source records.
 5. Check empty documents, optional values, multiline text, and literal `<`, `>`,
    and `&`. Review representative engineering symbols for missing glyphs.
-6. Exercise ordinary multi-page documents and the known oversized-row case.
-   Record rendering failures; the current oversized-row regression is unresolved.
+6. Exercise ordinary multi-page documents and oversized rows. Inspect row
+   continuation and retained content visually.
 7. Identify missing engineering fields explicitly. Targets, tolerances,
    point-specific criteria, and referenced card revisions are not consistently
    included in current PDFs. A successful download is not completeness approval.
 
 Keep generated test artifacts synthetic. Visual inspection is not a release,
 flight-safety approval, or certification-compliance finding.
+
+## Manual workspace verification
+
+Use normal development settings and an existing admin account. Create a separate
+synthetic program and follow the README planning workflow. Verify search, program
+filters, child links, form errors, fixed parents, empty states, deletion blocking,
+and export downloads. Check keyboard navigation and narrow-screen layouts.
+Use an ordinary account with selected permissions to check read-only behavior.
+Sign out and verify that direct document URLs redirect to login. Use synthetic
+data only; existing engineering records are not needed for these checks.

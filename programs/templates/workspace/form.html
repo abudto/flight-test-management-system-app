@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}{% if record %}Edit{% else %}Create{% endif %} {{ resource.title }} | FTMS{% endblock %}
+{% block content %}
+<a href="{{ cancel_url }}">&larr; Back</a><p class="eyebrow">{{ resource.title }}</p><h1>{% if record %}Edit record{% else %}Create record{% endif %}</h1>
+<p class="supporting-copy">Required fields are marked *. Parent assignments are fixed after creation to preserve planning relationships.</p>
+<form method="post" class="panel record-form">{% csrf_token %}
+{{ form.non_field_errors }}
+{% for field in form %}<div class="form-field">{{ field.errors }}<label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} *{% endif %}</label>{{ field }}{% if field.help_text %}<p class="supporting-copy">{{ field.help_text }}</p>{% endif %}</div>{% endfor %}
+<div class="actions"><button class="button" type="submit">Save record</button> <a href="{{ cancel_url }}">Cancel</a></div>
+</form>
+{% endblock %}

@@ -54,17 +54,14 @@ class HomePageTests(PlanningDataMixin, TestCase):
         response = self.client.get(reverse("home"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "No programs yet.")
-        self.assertContains(response, "Create a program in Django Admin")
+        self.assertContains(response, "Create a program to begin planning")
         self.assertNotContains(response, "/testing/program/")
 
-    def test_unimplemented_navigation_entries_are_not_links(self):
+    def test_workspace_navigation_entries_are_working_links(self):
         response = self.client.get(reverse("home"))
-        for label in ["Programs", "Test Cards", "Test Sequences", "Hazard Analysis"]:
-            with self.subTest(label=label):
-                self.assertContains(response,
-                    f'<span class="nav-unavailable" aria-disabled="true">{label} '
-                    '<small>Coming Soon</small></span>', html=True)
-        self.assertContains(response, '<a href="/#test-matrices">Test Matrix</a>', html=True)
+        for key in ["programs", "cards", "sequences", "hazards"]:
+            self.assertContains(response, f'href="{reverse("record_list", args=[key])}"')
+        self.assertNotContains(response, "Coming Soon")
         self.assertContains(response, 'id="test-matrices"')
 
     def test_homepage_links_resolve_to_working_pages_or_anchors(self):

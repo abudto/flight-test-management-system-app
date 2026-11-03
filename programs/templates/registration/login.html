@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Sign in | FTMS{% endblock %}
+{% block content %}<p class="eyebrow">Engineering workspace</p><h1>Sign in to FTMS</h1>
+<p class="supporting-copy">Use your assigned account. Contact your administrator for access.</p>
+<form method="post" class="panel record-form">{% csrf_token %}{{ form.as_p }}<input type="hidden" name="next" value="{{ next }}"><button class="button" type="submit">Sign in</button></form>{% endblock %}

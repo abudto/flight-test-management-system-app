@@ -93,7 +93,7 @@ def make_document(buffer):
 def styled_table(rows, widths, header=True):
     table = Table(
         rows, colWidths=widths, repeatRows=1 if header else 0,
-        hAlign="LEFT",
+        hAlign="LEFT", splitInRow=1,
     )
     commands = [
         ("VALIGN", (0, 0), (-1, -1), "TOP"),

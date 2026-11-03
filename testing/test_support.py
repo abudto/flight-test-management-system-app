@@ -10,6 +10,14 @@ from testing.models import (
 
 
 class PlanningDataMixin:
+    def setUp(self):
+        super().setUp()
+        from django.contrib.auth import get_user_model
+        self.workspace_user = get_user_model().objects.create_superuser(
+            username="synthetic-engineer", email="engineer@example.invalid", password="synthetic-password"
+        )
+        self.client.force_login(self.workspace_user)
+
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()

@@ -1,13 +1,7 @@
-"""Inspect real PDF responses; text inspection does not establish visual quality.
-
-Known defect: a sequence table row taller than a page raises LayoutError.
-The expected-failure test requires a successful export retaining all its text.
-Remove its marker when row pagination is fixed; do not truncate the content.
-"""
+"""Inspect real PDF responses including oversized rows; visual review remains necessary."""
 
 from datetime import date
 from io import BytesIO
-from unittest import expectedFailure
 
 from django.test import TestCase
 from django.urls import reverse
@@ -221,7 +215,6 @@ class TestSequencePDFTests(PDFDataMixin, TestCase):
             "export_sequence_pdf", args=[missing_id],
         )).status_code, 404)
 
-    @expectedFailure
     def test_oversized_row_exports_without_losing_required_content(self):
         """Known defect: ReportLab cannot split this tall sequence table row."""
         self.first_item.remarks = "ROWSTART\n" + "overflow line\n" * 150 + "ROWEND"

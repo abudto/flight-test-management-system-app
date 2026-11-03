@@ -1,4 +1,4 @@
-"""HTTP and rendered matrix behavior; no authorization policy is implied."""
+"""Authenticated HTTP and rendered matrix behavior with synthetic records."""
 
 from django.test import TestCase
 from django.urls import reverse

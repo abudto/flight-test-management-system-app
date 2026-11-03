@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import permission_required
 
 # Create your views here.
 from programs.models import Program
@@ -12,6 +13,7 @@ from .models import TestSequence, TestCard
 from .pdf_exports import generate_sequence_pdf, generate_card_pdf
 
 
+@permission_required("testing.view_testpoint", raise_exception=True)
 def test_matrix(request, program_id):
     program = get_object_or_404(
         Program,
@@ -42,6 +44,7 @@ def test_matrix(request, program_id):
         context,
     )
 
+@permission_required("testing.view_testpoint", raise_exception=True)
 def export_test_matrix(request, program_id):
 
     # 1. Get selected aircraft program
@@ -117,6 +120,12 @@ def export_test_matrix(request, program_id):
             point.remarks,
         ])
 
+    # Preserve user text as literal strings, including formula-like values.
+    for row in worksheet:
+        for cell in row:
+            if isinstance(cell.value, str):
+                cell.data_type = "s"
+
     # 6. Format header
     for cell in worksheet[1]:
         cell.font = Font(
@@ -161,6 +170,7 @@ def export_test_matrix(request, program_id):
 
     return response
 
+@permission_required("testing.view_testsequence", raise_exception=True)
 def export_sequence_pdf(request, sequence_id):
     sequence = get_object_or_404(
         TestSequence,
@@ -179,6 +189,7 @@ def export_sequence_pdf(request, sequence_id):
     return response
 
 
+@permission_required("testing.view_testcard", raise_exception=True)
 def export_card_pdf(request, card_id):
     card = get_object_or_404(
         TestCard,

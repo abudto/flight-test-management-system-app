@@ -68,3 +68,25 @@ td a { font-weight: 600; }
     .feature-grid { grid-template-columns: 1fr; }
     th, td { padding: .75rem; }
 }
+
+/* Shared planning forms and record pages. */
+.filters { display:flex; flex-wrap:wrap; align-items:end; gap:1rem; }
+.filters label, .form-field label { display:block; font-weight:600; margin-bottom:.35rem; }
+input:not([type=checkbox]), select, textarea { width:100%; padding:.65rem; border:1px solid #9eafbe; border-radius:4px; font:inherit; background:#fff; color:var(--ink); }
+input:focus, select:focus, textarea:focus, button:focus-visible { outline:3px solid #d48a16; outline-offset:2px; }
+.record-form { max-width:860px; }
+.form-field { margin-bottom:1.25rem; }
+button.button { border:0; cursor:pointer; font:inherit; }
+.errorlist { color:#9e2020; background:#fff1f0; padding:1rem 2rem; }
+.notice { padding:1rem; background:#e8f3fa; border-left:4px solid var(--accent); }
+.record-fields { display:grid; grid-template-columns:minmax(140px,1fr) 3fr; gap:1rem; margin:0; }
+.record-fields dt { font-weight:600; }
+.record-fields dd { margin:0; overflow-wrap:anywhere; }
+.related-panel { margin-top:1.5rem; }
+.record-links { padding-left:1.2rem; }
+.record-links li { padding:.4rem; }
+.actions { display:flex; flex-wrap:wrap; align-items:center; gap:1rem; }
+.logout-form { align-self:center; margin-left:auto; }
+.logout-form button { background:transparent; color:white; border:1px solid #7292af; border-radius:4px; padding:.4rem; cursor:pointer; }
+.danger { background:#9e2020; }
+@media (max-width:760px) { .record-fields { grid-template-columns:1fr; gap:.3rem; } .record-fields dd { margin-bottom:1rem; } }

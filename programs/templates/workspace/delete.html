@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Delete record | FTMS{% endblock %}
+{% block content %}<h1>Delete {{ record }}?</h1><section class="panel">
+{% if blocked %}<p class="notice">This record has dependent records and cannot be deleted. Review its related records instead.</p>{% else %}<p>This permanently deletes this record. Review the record before confirming.</p><form method="post">{% csrf_token %}<button class="button danger" type="submit">Confirm deletion</button></form>{% endif %}
+<p><a href="{% url 'record_detail' resource_key record.pk %}">Return to record</a></p></section>{% endblock %}
