@@ -14,69 +14,18 @@ or provide approved operational instructions.
 
 | Capability | Current implementation |
 |---|---|
-| Programs and aircraft | Program dashboards, permission-aware aircraft views, workspace pages, and Django admin |
+| Programs and aircraft | Records managed through Django admin |
 | Engineering planning | Engineering requirements, tests, points, and conditions |
 | Test matrix | Program-specific HTML table and Excel download |
-| Test cards | Workspace authoring and PDF export |
+| Test cards | Admin authoring and PDF export |
 | Test sequences | Ordered points, optional cards, dates, durations, and PDF export |
 | Hazard records | Causes, consequences, mitigation, and basic program validation |
 | Reference catalogs | Units, measurements, regulations, regulatory requirements, and crew |
 | Quality baseline | Automated model, matrix, Excel, and PDF tests; GitHub Actions workflow |
 
-The authenticated engineering workspace now provides list, detail, create, edit,
-and guarded deletion pages for all 15 existing record types. Lists support search,
-pagination, and program filtering where applicable. Detail pages link related
-records and offer child creation with a fixed parent. Django admin remains
-available for account, group, and permission management.
-
-Navigation uses a desktop sidebar grouped into Workspace, Test Planning, Safety,
-and Reference Data. Links remain permission-based; the current section is highlighted.
-On smaller screens, the Navigation button opens a drawer with close, Escape, and
-keyboard focus handling. The header shows program context and account controls.
-Without JavaScript, navigation remains visible in a stacked layout.
-
-Open `/programs/` for the engineering program list and select a dashboard at
-`/programs/<program_id>/`. Dashboards show aircraft and planning counts only for
-record types your account may view. They link to program-filtered workspace pages
-for requirements, tests, points, cards, sequences, and hazards. Existing workspace
-record management remains available through “Manage program record.”
-
-“View Tests” opens a read-only specification browser at
-`/testing/program/<program_id>/tests/`. Its list requires program, test, and
-engineering-requirement view permissions; full specifications additionally require
-test-point and condition view permissions. Accounts without full specification
-access can still open permitted test records through the workspace. All these
-pages require sign-in. Program filtering does not provide program membership rules.
-
-### Access and permissions
-
-Sign in at `/accounts/login/` using an existing account. Superusers can access
-all workspace pages. For ordinary accounts, assign Django model **view**
-permissions and the desired **add/change/delete** permissions through admin users
-or groups. Writes also require view permission. Pages and exports require sign-in;
-exports additionally require test point, card, or sequence view permission.
-Permissions are global per model, not scoped by program membership. No public
-signup or email password reset is provided. Users can change passwords from the
-navigation; administrators manage account recovery through admin.
-
-### Planning workflow
-
-1. Create a program and open its detail page.
-2. Add aircraft and engineering requirements from the related sections.
-3. Open a requirement to add tests; open a test to add points and cards.
-4. Open a point to add conditions, units, tolerances, and criteria.
-5. Add a program sequence, then ordered items with points and optional cards.
-   Point choices are scoped to the sequence's program; cards must match the test.
-6. Add program hazards and optional related tests. Maintain units, measurements,
-   regulations, regulatory requirements, and crew from their workspace pages.
-7. View the matrix and download Excel, card PDFs, and sequence PDFs.
-
-Parent assignments cannot be changed through edit forms, preserving descendant
-relationships. Create records under the correct parent instead. Deletion requires
-confirmation and is blocked whenever dependent records exist, including nullable
-relationships. These protections apply to workspace writes; admin and direct ORM
-writes retain their existing behavior. Card points are still derived from sequence
-items. Revision labels are editable planning labels, not controlled releases.
+Data entry uses Django admin. The homepage lists programs with links to their
+test matrices; dedicated editing pages are planned. Regulations, units, aircraft, and crew are stored, but
+are not fully connected to certification, measurement validation, or operations.
 
 Planned capabilities include aircraft configuration baselines, program membership
 and authorization, controlled revisions and approvals, regulatory verification
@@ -234,8 +183,6 @@ python manage.py runserver 127.0.0.1:8000
 Open:
 
 - Homepage and matrix selection: <http://127.0.0.1:8000/>
-- Programs and dashboards: <http://127.0.0.1:8000/programs/>
-- Demo program dashboard: <http://127.0.0.1:8000/programs/101/>
 - Admin: <http://127.0.0.1:8000/admin/>
 - Demo matrix: <http://127.0.0.1:8000/testing/program/101/matrix/>
 - Demo Excel: <http://127.0.0.1:8000/testing/program/101/matrix/export/>
@@ -262,8 +209,9 @@ Test settings skip `.env`, use a synthetic secret and an in-memory SQLite databa
 and do not require demo loading or a superuser. Never serve the application with
 test settings. See [TESTING.md](TESTING.md) for targeted commands and interpretation.
 
-The integrated workspace/dashboard baseline has **138 passing tests** with no expected failures,
-including all resource workflows, permissions, validation, and export regressions.
+The Foundation baseline has 73 tests: **71 pass and two are expected failures**.
+Counts change as tests are added. The expected failures record known defects;
+a successful test run does not mean those defects are fixed.
 
 ## GitHub Actions CI
 
@@ -280,14 +228,14 @@ in GitHub after the owner pushes; local checks do not establish hosted success.
 
 ## Known limitations and roadmap
 
-- Model permissions apply across all programs. Program-specific membership and
-  authorization are not implemented.
+- Custom matrix and export endpoints currently allow anonymous access; program
+  filtering is not user authorization. Use synthetic data on public demos.
 - Cross-program validation uses model `clean()`; direct `save()` and bulk writes
   can bypass it. Parent changes do not automatically validate descendants.
 - Card points are inferred from sequence assignments; cards and sequences are
   mutable despite revision labels. No approval history or immutable release exists.
-- Formula-like Excel text is preserved literally and oversized PDF rows now
-  split across pages. Representative layouts still need visual review.
+- Excel interprets formula-like text such as `=1+1` as a formula (expected failure).
+- Oversized PDF table rows can raise `LayoutError` (expected failure).
 - Exports omit some units, tolerances, point criteria, and referenced revisions.
   They are planning demonstrations, not controlled flight instructions.
 - Some status values and identifiers lack constraints. Unit catalogs do not
