@@ -12,6 +12,7 @@ os.environ["DJANGO_LOAD_DOTENV"] = "false"
 os.environ["DJANGO_SECRET_KEY"] = "ftms-synthetic-test-key-not-for-deployment"
 os.environ["DJANGO_DEBUG"] = "false"
 os.environ["DJANGO_ALLOWED_HOSTS"] = "testserver,localhost,127.0.0.1,[::1]"
+os.environ["DJANGO_DB_ENGINE"] = "sqlite"
 
 from .settings import *  # noqa: F403,E402
 

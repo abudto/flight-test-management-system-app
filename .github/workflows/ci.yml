@@ -11,15 +11,35 @@ permissions:
 
 jobs:
   tests:
-    name: Django tests (Python 3.13)
+    name: Django tests (Python 3.13 / PostgreSQL 18)
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_DB: ftms_ci
+          POSTGRES_USER: ftms_ci
+          POSTGRES_PASSWORD: synthetic-ci-database-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U ftms_ci -d ftms_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     env:
-      DJANGO_SETTINGS_MODULE: config.test_settings
+      DJANGO_SETTINGS_MODULE: config.postgres_test_settings
       DJANGO_LOAD_DOTENV: "false"
       DJANGO_SECRET_KEY: ftms-synthetic-ci-key-not-for-deployment
       DJANGO_DEBUG: "false"
       DJANGO_ALLOWED_HOSTS: testserver,localhost,127.0.0.1,[::1]
+      DJANGO_TEST_LOAD_DOTENV: "false"
+      DJANGO_TEST_DB_NAME: test_ftms_ci
+      DJANGO_TEST_DB_USER: ftms_ci
+      DJANGO_TEST_DB_PASSWORD: synthetic-ci-database-password
+      DJANGO_TEST_DB_HOST: 127.0.0.1
+      DJANGO_TEST_DB_PORT: "5432"
       PYTHONDONTWRITEBYTECODE: "1"
 
     steps:
@@ -45,13 +65,13 @@ jobs:
         run: python -m pip check
 
       - name: Django system checks
-        run: python manage.py check --settings=config.test_settings
+        run: python manage.py check --settings=config.postgres_test_settings
 
       - name: Check for missing migrations
-        run: python manage.py makemigrations --check --dry-run --settings=config.test_settings
+        run: python manage.py makemigrations --check --dry-run --settings=config.postgres_test_settings
 
       - name: Run complete test suite with coverage
-        run: python -m coverage run manage.py test --settings=config.test_settings --verbosity=2 --noinput
+        run: python -m coverage run manage.py test --settings=config.postgres_test_settings --verbosity=2 --noinput
 
       - name: Coverage report
         if: ${{ !cancelled() }}

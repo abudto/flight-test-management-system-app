@@ -5,6 +5,7 @@ et_xmlfile==2.0.0
 openpyxl==3.1.5
 pillow==13.0.0
 python-dotenv==1.2.4
+psycopg[binary]==3.3.8
 reportlab==5.1.0
 sqlparse==0.6.0
 tzdata==2026.5
