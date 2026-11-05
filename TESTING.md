@@ -65,6 +65,10 @@ complete historical traceability.
 | Module | Scope |
 |---|---|
 | `programs/test_workspace.py` | All resource workflows, authentication, permissions, CSRF, parent locking, and guarded deletion |
+| `programs/test_dashboard.py` | Program dashboards, scoped counts, aircraft, empty states, and filtered workspace links |
+| `programs/test_dashboard_access.py` | Dashboard authentication, model permissions, restricted counts/aircraft, specification access, and workspace integration |
+| `programs/test_navigation.py` | Sidebar grouping, permissions, active destinations, context labels, and mobile control markup |
+| `testing/test_web_views.py` | Read-only program test browser, wrong-program 404s, conditions, units, zero/null values, and navigation |
 | `programs/tests.py` | Aircraft/program and requirement relationships |
 | `testing/tests.py` | Cross-program points, card compatibility, sequence validation, uniqueness, ordering, deletions |
 | `reference_data/tests.py` | Hazard validation, scoped uniqueness, unit/measurement identity, protected references |
@@ -128,7 +132,7 @@ measured baseline was 96% line coverage.
 
 ## Regression status and scope
 
-The current baseline has 92 passing tests and no expected failures. Formula-like
+The current baseline has 138 passing tests and no expected failures. Formula-like
 Excel remarks remain literal strings; oversized PDF rows split across pages
 without losing the content asserted by the regression test.
 
@@ -177,3 +181,10 @@ and export downloads. Check keyboard navigation and narrow-screen layouts.
 Use an ordinary account with selected permissions to check read-only behavior.
 Sign out and verify that direct document URLs redirect to login. Use synthetic
 data only; existing engineering records are not needed for these checks.
+
+For sidebar review, check desktop and phone widths. Open Navigation on a small
+screen; verify close, backdrop, Escape, Tab/Shift+Tab wrapping, focus return, and
+scrolling through all permitted links. Resize with the drawer open and check the
+desktop sidebar remains available. Disable JavaScript to verify the stacked
+fallback. Django tests check navigation markup and server behavior; they do not
+execute browser JavaScript or verify rendered layout.

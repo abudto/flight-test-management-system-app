@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Tests · {{ program.name }} | FTMS{% endblock %}
+
+{% block content %}
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a> <span aria-hidden="true">/</span> <a href="{% url 'programs:program_list' %}">Programs</a> <span aria-hidden="true">/</span> <a href="{% url 'programs:program_detail' program.pk %}">{{ program.name }}</a> <span aria-hidden="true">/</span> <span aria-current="page">Tests</span></nav>
+<header class="page-intro">
+    <p class="eyebrow">{{ program.name }} · Test planning</p>
+    <h1>Tests</h1>
+    <p class="intro-copy">Review test specifications and planned test points.</p>
+    <span class="status-badge">Read-only</span>
+</header>
+<section class="panel" aria-labelledby="tests-heading">
+    <h2 id="tests-heading">Program tests</h2>
+    <div class="table-scroll" role="region" aria-label="Program tests" tabindex="0">
+        <table>
+            <caption class="visually-hidden">Tests belonging to {{ program.name }}</caption>
+            <thead><tr><th scope="col">Test identifier</th><th scope="col">Title</th><th scope="col">Objective</th><th scope="col">Engineering requirement</th><th scope="col">Test points</th></tr></thead>
+            <tbody>
+                {% for planned_test in tests %}
+                <tr>
+                    <td>{% if perms.testing.view_testpoint and perms.testing.view_testpointcondition %}<a href="{% url 'test_detail' program.pk planned_test.pk %}">{{ planned_test.test_number }}</a>{% else %}<a href="{% url 'record_detail' 'tests' planned_test.pk %}">{{ planned_test.test_number }}</a>{% endif %}</td>
+                    <td>{{ planned_test.test_title }}</td>
+                    <td class="text-content">{{ planned_test.objective|default:"Not specified"|truncatechars:200 }}</td>
+                    <td>{{ planned_test.engineering_requirement.document_number }}</td>
+                    <td>{% if perms.testing.view_testpoint %}{{ planned_test.point_count }}{% else %}View permission required{% endif %}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="5" class="empty-state">No tests recorded for this program yet. Return to the <a href="{% url 'programs:program_detail' program.pk %}">program dashboard</a> to review its planning overview.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

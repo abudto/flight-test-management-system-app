@@ -1,0 +1,7 @@
+{% if item.key == 'programs' %}
+<a href="{% url 'programs:program_list' %}"{% if request.resolver_match.app_name == 'programs' or resource_key == 'programs' %} aria-current="page"{% endif %}>Programs</a>
+{% elif item.key == 'tests' and program and perms.programs.view_program and perms.testing.view_engineeringtestrequirement %}
+<a href="{% url 'test_list' program.pk %}"{% if request.resolver_match.url_name == 'test_list' or request.resolver_match.url_name == 'test_detail' or resource_key == 'tests' %} aria-current="page"{% endif %}>Tests</a>
+{% else %}
+<a href="{% url 'record_list' item.key %}"{% if resource_key == item.key %} aria-current="page"{% endif %}>{{ item.title }}</a>
+{% endif %}

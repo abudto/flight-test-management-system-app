@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}{{ program.name }} | FTMS{% endblock %}
+
+{% block content %}
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a> <span aria-hidden="true">/</span> <a href="{% url 'programs:program_list' %}">Programs</a> <span aria-hidden="true">/</span> <span>Program {{ program.pk }}</span></nav>
+<header class="page-intro">
+    <p class="eyebrow">Program dashboard · Program ID {{ program.pk }}</p>
+    <h1>{{ program.name }}</h1>
+    <span class="status-badge">{{ program.status }}</span>
+    <div class="intro-copy text-content">{{ program.description|default:"No description provided."|linebreaksbr }}</div>
+    {% if perms.testing.view_testpoint %}<a class="button" href="{% url 'test_matrix' program.pk %}">Open Test Matrix <span aria-hidden="true">&rarr;</span></a>{% endif %}
+    {% if perms.testing.view_test and perms.testing.view_engineeringtestrequirement %}<a class="button button-secondary" href="{% url 'test_list' program.pk %}">View Tests <span aria-hidden="true">&rarr;</span></a>{% endif %}
+    <a class="button" href="{% url 'record_detail' 'programs' program.pk %}">Manage program record</a>
+</header>
+
+<section aria-labelledby="planning-heading">
+    <h2 id="planning-heading">Planning overview</h2>
+    <p class="section-description">Stored planning records for this program. Counts include all recorded document revisions.</p>
+    <dl class="metric-grid">
+        {% for label, count in counts.items %}
+        <div class="metric-card"><dt>{{ label }}</dt><dd>{{ count }}</dd></div>
+        {% empty %}<p class="supporting-copy">Additional view permissions are required to see planning counts.</p>
+        {% endfor %}
+    </dl>
+</section>
+
+<section class="panel" aria-labelledby="aircraft-heading">
+    <div class="section-heading"><h2 id="aircraft-heading">Program aircraft</h2>{% if can_view_aircraft %}<a href="{% url 'record_list' 'aircraft' %}?program={{ program.pk }}">Manage aircraft</a>{% endif %}</div>
+    {% if can_view_aircraft %}
+    <div class="table-scroll" role="region" aria-label="Program aircraft" tabindex="0">
+        <table>
+            <caption class="visually-hidden">Aircraft assigned to {{ program.name }}</caption>
+            <thead><tr><th scope="col">Aircraft number</th><th scope="col">Type</th><th scope="col">Registration</th><th scope="col">Serial number</th><th scope="col">Remarks</th></tr></thead>
+            <tbody>
+                {% for aircraft_record in aircraft %}
+                <tr><td>{{ aircraft_record.aircraft_number }}</td><td>{{ aircraft_record.aircraft_type }}</td><td>{{ aircraft_record.registration|default:"—" }}</td><td>{{ aircraft_record.serial_number|default:"—" }}</td><td class="text-content">{{ aircraft_record.remarks|default:"—"|linebreaksbr }}</td></tr>
+                {% empty %}
+                <tr><td colspan="5" class="empty-state">No aircraft assigned to this program yet. <a href="{% url 'record_list' 'aircraft' %}?program={{ program.pk }}">Open aircraft workspace</a>.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}<p class="supporting-copy">Aircraft view permission is required to see aircraft records.</p>{% endif %}
+</section>
+
+<section class="upcoming-section" aria-labelledby="workspaces-heading">
+    <h2 id="workspaces-heading">Program workspaces</h2>
+    <div class="feature-grid">
+        {% for workspace in workspaces %}<article class="feature-card"><h3><a href="{{ workspace.url }}">{{ workspace.title }}</a></h3><p>Browse this program's {{ workspace.title|lower }}.</p></article>{% empty %}<p class="supporting-copy">Ask your administrator for the planning view permissions you need.</p>{% endfor %}
+    </div>
+    <p class="supporting-copy">Controlled releases, approvals, and actual flight results: Coming Soon.</p>
+</section>
+{% endblock %}
