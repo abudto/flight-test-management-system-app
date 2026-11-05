@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}{{ test.test_number }} · {{ program.name }} | FTMS{% endblock %}
+
+{% block content %}
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a> <span aria-hidden="true">/</span> <a href="{% url 'programs:program_list' %}">Programs</a> <span aria-hidden="true">/</span> <a href="{% url 'programs:program_detail' program.pk %}">{{ program.name }}</a> <span aria-hidden="true">/</span> <a href="{% url 'test_list' program.pk %}">Tests</a> <span aria-hidden="true">/</span> <span aria-current="page">{{ test.test_number }}</span></nav>
+<header class="page-intro">
+    <p class="eyebrow">{{ program.name }} · {{ test.test_number }}</p>
+    <h1>{{ test.test_title }}</h1>
+    <span class="status-badge">Read-only · Planned specification</span>
+</header>
+
+<section class="panel document-section" aria-labelledby="specification-heading">
+    <h2 id="specification-heading">Test specification</h2>
+    <dl class="specification-grid">
+        <div><dt>Objective</dt><dd>{{ test.objective|default:"Not specified"|linebreaksbr }}</dd></div>
+        <div><dt>Test procedure</dt><dd>{{ test.test_procedure|default:"Not specified"|linebreaksbr }}</dd></div>
+        <div><dt>Special equipment</dt><dd>{{ test.special_equipment|default:"Not specified"|linebreaksbr }}</dd></div>
+        <div><dt>Special test requirements</dt><dd>{{ test.special_test_requirement|default:"Not specified"|linebreaksbr }}</dd></div>
+        <div><dt>Test acceptance criteria</dt><dd>{{ test.pass_fail_criteria|default:"Not specified"|linebreaksbr }}</dd></div>
+        <div><dt>Related regulation (recorded text)</dt><dd>{{ test.related_regulation|default:"Not specified" }}</dd></div>
+        <div><dt>Test remarks</dt><dd>{{ test.remarks|default:"Not specified"|linebreaksbr }}</dd></div>
+    </dl>
+</section>
+
+<section class="panel document-section" aria-labelledby="requirement-heading">
+    <h2 id="requirement-heading">Engineering requirement</h2>
+    <dl class="specification-grid">
+        <div><dt>Document number</dt><dd>{{ test.engineering_requirement.document_number }}</dd></div>
+        <div><dt>Document title</dt><dd>{{ test.engineering_requirement.document_title }}</dd></div>
+        <div><dt>Purpose</dt><dd>{{ test.engineering_requirement.purpose|default:"Not specified"|linebreaksbr }}</dd></div>
+        <div><dt>Requirement remarks</dt><dd>{{ test.engineering_requirement.remarks|default:"Not specified"|linebreaksbr }}</dd></div>
+    </dl>
+</section>
+
+<section aria-labelledby="points-heading">
+    <h2 id="points-heading">Planned test points</h2>
+    <p class="section-description">Target speed and altitude use the existing matrix convention: kt and ft. Conditions show their recorded units and tolerances.</p>
+    {% for point in test_points %}
+    <article class="panel document-section" aria-labelledby="point-{{ point.pk }}">
+        <h3 id="point-{{ point.pk }}">{{ point.test_point_number }}</h3>
+        <dl class="specification-grid point-summary">
+            <div><dt>Weight category</dt><dd>{{ point.get_weight_category_display|default:"Not specified" }}</dd></div>
+            <div><dt>CG category</dt><dd>{{ point.get_cg_category_display|default:"Not specified" }}</dd></div>
+            <div><dt>Target speed (kt)</dt><dd>{{ point.target_speed|default_if_none:"Not specified" }}</dd></div>
+            <div><dt>Target altitude (ft)</dt><dd>{{ point.target_altitude|default_if_none:"Not specified" }}</dd></div>
+            <div><dt>Repetitions required</dt><dd>{{ point.repetition_required }}</dd></div>
+            <div><dt>Status</dt><dd>{{ point.status|default:"Not specified" }}</dd></div>
+            <div><dt>Point acceptance criteria</dt><dd>{{ point.pass_fail_criteria|default:"Not specified"|linebreaksbr }}</dd></div>
+            <div><dt>Point remarks</dt><dd>{{ point.remarks|default:"Not specified"|linebreaksbr }}</dd></div>
+        </dl>
+        <div class="table-scroll" role="region" aria-label="Conditions for {{ point.test_point_number }}" tabindex="0">
+            <table>
+                <caption>Conditions for {{ point.test_point_number }}</caption>
+                <thead><tr><th scope="col">Condition</th><th scope="col">Value</th><th scope="col">Unit</th><th scope="col">Tolerance (recorded)</th><th scope="col">Remarks</th></tr></thead>
+                <tbody>
+                    {% for condition in point.conditions.all %}
+                    <tr><td>{{ condition.name }}</td><td>{{ condition.value|default:"Not specified" }}</td><td>{{ condition.unit|default:"Not specified" }}</td><td>{{ condition.tolerance|default:"Not specified" }}</td><td class="text-content">{{ condition.remarks|default:"Not specified"|linebreaksbr }}</td></tr>
+                    {% empty %}
+                    <tr><td colspan="5" class="empty-state">No conditions recorded for this test point.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </article>
+    {% empty %}
+    <p class="panel empty-state">No test points recorded for this test yet.</p>
+    {% endfor %}
+</section>
+{% endblock %}

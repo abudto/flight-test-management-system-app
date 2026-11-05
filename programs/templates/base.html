@@ -6,29 +6,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}FTMS | Flight Test Management System{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'programs/css/ftms.css' %}">
+    <script src="{% static 'programs/js/navigation.js' %}" defer></script>
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
-    <header class="app-header">
-        <div class="header-inner">
+    <aside class="app-sidebar" id="app-sidebar" aria-label="Application sidebar">
+        <div class="sidebar-brand">
             <a class="brand" href="{% url 'home' %}">
                 <span class="brand-mark" aria-hidden="true">FT</span>
                 <span><strong>FTMS</strong><span class="brand-description">Flight Test Management System</span></span>
             </a>
-            <span class="workspace-label">Engineering workspace</span>
+            <button class="sidebar-close" id="navigation-close" type="button" aria-label="Close navigation" hidden>&times;</button>
         </div>
-        <nav class="main-nav" aria-label="Main navigation">
-            <a href="{% url 'home' %}"{% if request.resolver_match.url_name == 'home' %} aria-current="page"{% endif %}>Home</a>
-            {% for item in workspace_navigation %}<a href="{% url 'record_list' item.key %}"{% if resource_key == item.key %} aria-current="page"{% endif %}>{{ item.title }}</a>{% endfor %}
-            {% if request.resolver_match.url_name == 'test_matrix' and program %}<a href="{% url 'test_matrix' program.pk %}" aria-current="page">Test Matrix</a>{% else %}<a href="{% url 'home' %}#test-matrices">Test Matrix</a>{% endif %}
-            {% if user.is_staff %}<a href="{% url 'admin:index' %}">Django Admin</a>{% endif %}
-            {% if user.is_authenticated %}<a href="{% url 'password_change' %}">Password</a><form method="post" action="{% url 'logout' %}" class="logout-form">{% csrf_token %}<button type="submit">Sign out {{ user.username }}</button></form>{% endif %}
+        <nav class="sidebar-nav" aria-label="Main navigation">
+            {% for group in navigation_groups %}
+            <section class="nav-group" aria-labelledby="nav-{{ group.key }}">
+                <h2 id="nav-{{ group.key }}">{{ group.title }}</h2>
+                {% if group.key == 'workspace' %}<a href="{% url 'home' %}"{% if request.resolver_match.url_name == 'home' %} aria-current="page"{% endif %}>Home</a>{% endif %}
+                {% for item in group.items %}{% include "programs/includes/navigation_link.html" %}{% endfor %}
+                {% if group.key == 'planning' and perms.testing.view_testpoint %}
+                    {% if request.resolver_match.url_name == 'test_matrix' and program %}<a href="{% url 'test_matrix' program.pk %}" aria-current="page">Test Matrix</a>{% elif program %}<a href="{% url 'test_matrix' program.pk %}">Test Matrix</a>{% else %}<a href="{% url 'home' %}#test-matrices">Test Matrix</a>{% endif %}
+                {% endif %}
+            </section>
+            {% empty %}
+            <section class="nav-group" aria-labelledby="nav-workspace"><h2 id="nav-workspace">Workspace</h2><a href="{% url 'home' %}">Home</a></section>
+            {% endfor %}
+            {% if user.is_staff %}
+            <section class="nav-group" aria-labelledby="nav-administration"><h2 id="nav-administration">Administration</h2><a href="{% url 'admin:index' %}">Django Admin</a></section>
+            {% endif %}
         </nav>
-    </header>
-    <main id="main-content" class="page-container" tabindex="-1">
-        {% for message in messages %}<p class="notice" role="status">{{ message }}</p>{% endfor %}
-        {% block content %}{% endblock %}
-    </main>
-    <footer class="app-footer">FTMS <span aria-hidden="true">/</span> Flight test planning and engineering</footer>
+        <div class="sidebar-footer">Flight test engineering<span>Planning workspace</span></div>
+    </aside>
+    <button class="navigation-backdrop" id="navigation-backdrop" type="button" aria-label="Close navigation" tabindex="-1" hidden></button>
+    <div class="app-shell">
+        <header class="workspace-header">
+            <button id="navigation-toggle" class="navigation-toggle" type="button" aria-controls="app-sidebar" aria-expanded="false" aria-label="Open navigation" hidden><span aria-hidden="true">&#9776;</span> Navigation</button>
+            <div class="workspace-context">
+                <span class="workspace-label">Engineering workspace</span>
+                {% if program %}
+                {% if perms.programs.view_program %}<a href="{% url 'programs:program_detail' program.pk %}">Program: {{ program.name }}</a>{% else %}<span>Program: {{ program.name }}</span>{% endif %}
+                {% elif selected_program %}<span>Program ID {{ selected_program }}</span>
+                {% elif resource.program_path %}<span>All programs</span>
+                {% elif resource %}<span>{{ resource.title }}</span>
+                {% else %}<span>Program overview</span>{% endif %}
+            </div>
+            <div class="account-controls">
+                {% if user.is_authenticated %}
+                <span class="account-name">{{ user.username }}</span>
+                <a href="{% url 'password_change' %}">Password</a>
+                <form method="post" action="{% url 'logout' %}" class="logout-form">{% csrf_token %}<button type="submit">Sign out<span class="visually-hidden"> {{ user.username }}</span></button></form>
+                {% else %}<a href="{% url 'login' %}">Sign in</a>{% endif %}
+            </div>
+        </header>
+        <main id="main-content" class="page-container" tabindex="-1">
+            {% for message in messages %}<p class="notice" role="status">{{ message }}</p>{% endfor %}
+            {% block content %}{% endblock %}
+        </main>
+        <footer class="app-footer">FTMS <span aria-hidden="true">/</span> Flight test planning and engineering</footer>
+    </div>
 </body>
 </html>

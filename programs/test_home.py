@@ -80,7 +80,9 @@ class HomePageTests(PlanningDataMixin, TestCase):
         self.assertContains(response, '/static/programs/css/ftms.css')
         self.assertIsNotNone(finders.find("programs/css/ftms.css"))
         self.assertContains(response, 'name="viewport"')
-        self.assertNotContains(response, "<script")
+        self.assertContains(response, '<script src="/static/programs/js/navigation.js" defer></script>',
+                            html=True)
+        self.assertIsNotNone(finders.find("programs/js/navigation.js"))
 
     def test_program_text_is_escaped(self):
         self.program_a.name = '<script>alert("synthetic")</script>'

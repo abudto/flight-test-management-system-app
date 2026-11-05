@@ -1,7 +1,10 @@
 from django.urls import path
 from . import views
+from . import web_views
 
 urlpatterns = [
+    path("program/<int:program_id>/tests/", web_views.test_list, name="test_list"),
+    path("program/<int:program_id>/tests/<int:test_id>/", web_views.test_detail, name="test_detail"),
     path(
         'program/<int:program_id>/matrix/',
         views.test_matrix,

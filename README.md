@@ -14,7 +14,7 @@ or provide approved operational instructions.
 
 | Capability | Current implementation |
 |---|---|
-| Programs and aircraft | Dedicated workspace pages and Django admin |
+| Programs and aircraft | Program dashboards, permission-aware aircraft views, workspace pages, and Django admin |
 | Engineering planning | Engineering requirements, tests, points, and conditions |
 | Test matrix | Program-specific HTML table and Excel download |
 | Test cards | Workspace authoring and PDF export |
@@ -28,6 +28,25 @@ and guarded deletion pages for all 15 existing record types. Lists support searc
 pagination, and program filtering where applicable. Detail pages link related
 records and offer child creation with a fixed parent. Django admin remains
 available for account, group, and permission management.
+
+Navigation uses a desktop sidebar grouped into Workspace, Test Planning, Safety,
+and Reference Data. Links remain permission-based; the current section is highlighted.
+On smaller screens, the Navigation button opens a drawer with close, Escape, and
+keyboard focus handling. The header shows program context and account controls.
+Without JavaScript, navigation remains visible in a stacked layout.
+
+Open `/programs/` for the engineering program list and select a dashboard at
+`/programs/<program_id>/`. Dashboards show aircraft and planning counts only for
+record types your account may view. They link to program-filtered workspace pages
+for requirements, tests, points, cards, sequences, and hazards. Existing workspace
+record management remains available through “Manage program record.”
+
+“View Tests” opens a read-only specification browser at
+`/testing/program/<program_id>/tests/`. Its list requires program, test, and
+engineering-requirement view permissions; full specifications additionally require
+test-point and condition view permissions. Accounts without full specification
+access can still open permitted test records through the workspace. All these
+pages require sign-in. Program filtering does not provide program membership rules.
 
 ### Access and permissions
 
@@ -215,6 +234,8 @@ python manage.py runserver 127.0.0.1:8000
 Open:
 
 - Homepage and matrix selection: <http://127.0.0.1:8000/>
+- Programs and dashboards: <http://127.0.0.1:8000/programs/>
+- Demo program dashboard: <http://127.0.0.1:8000/programs/101/>
 - Admin: <http://127.0.0.1:8000/admin/>
 - Demo matrix: <http://127.0.0.1:8000/testing/program/101/matrix/>
 - Demo Excel: <http://127.0.0.1:8000/testing/program/101/matrix/export/>
@@ -241,7 +262,7 @@ Test settings skip `.env`, use a synthetic secret and an in-memory SQLite databa
 and do not require demo loading or a superuser. Never serve the application with
 test settings. See [TESTING.md](TESTING.md) for targeted commands and interpretation.
 
-The workspace baseline has **92 passing tests** with no expected failures,
+The integrated workspace/dashboard baseline has **138 passing tests** with no expected failures,
 including all resource workflows, permissions, validation, and export regressions.
 
 ## GitHub Actions CI

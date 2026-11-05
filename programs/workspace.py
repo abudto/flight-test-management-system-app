@@ -237,6 +237,21 @@ def record_delete(request, key, pk):
 def workspace_navigation(request):
     if not request.user.is_authenticated:
         return {}
-    return {"workspace_navigation": [{"key": key, "title": resource.title}
-                                     for key, resource in RESOURCES.items()
-                                     if allowed(request.user, resource, "view")]}
+    items = [{"key": key, "title": resource.title}
+             for key, resource in RESOURCES.items()
+             if allowed(request.user, resource, "view")]
+    sections = [
+        ("workspace", "Workspace", ("programs",)),
+        ("planning", "Test Planning", ("requirements", "tests", "points", "conditions", "cards", "sequences", "items")),
+        ("safety", "Safety", ("hazards",)),
+        ("reference", "Reference Data", ("aircraft", "crew", "regulations", "regulatory-requirements", "units", "measurements")),
+    ]
+    by_key = {item["key"]: item for item in items}
+    groups = [{"key": key, "title": title,
+               "items": [by_key[item_key] for item_key in keys if item_key in by_key]}
+              for key, title, keys in sections]
+    # Keep the flat list for existing homepage cards and the grouped list for
+    # navigation. Empty sections disappear, except Workspace, which has Home.
+    return {"workspace_navigation": items,
+            "navigation_groups": [group for group in groups
+                                  if group["items"] or group["key"] == "workspace"]}
