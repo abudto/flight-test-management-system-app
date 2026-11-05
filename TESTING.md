@@ -10,9 +10,20 @@ python -m pip check
 ```
 
 All commands below run from the repository root with that environment activated.
-Always select `config.test_settings`. It disables private `.env` loading and
-supplies synthetic settings, an in-memory SQLite database, a fast test-only
-password hasher, and an in-memory email backend.
+Use `config.postgres_test_settings` for PostgreSQL, matching CI. It reads only
+database connection values from local `.env`, with process variables taking
+precedence. `DJANGO_TEST_LOAD_DOTENV=false` disables that read in CI. Application
+secrets/debug settings are synthetic; the role is `DJANGO_TEST_DB_USER`, never a
+fallback to `DJANGO_DB_USER`. The default `test_ftms` database is created and
+removed by Django. The role requires `CREATEDB`; it should have no access to the
+development database. Do not point these settings at an existing database you
+want to keep. `DJANGO_TEST_DB_NAME` must start with `test_` and must not equal the
+development database name.
+
+`config.test_settings` remains available for SQLite. It disables `.env` loading
+entirely and uses an in-memory database. Both configurations use a test-only
+password hasher and in-memory email backend. Always pass the settings explicitly;
+normal settings use the restricted development role, not the test role.
 
 Django creates the test schema from existing migrations and discards the test
 database afterward. A log mentioning `file:memorydb_default` refers to SQLite's
@@ -64,6 +75,7 @@ complete historical traceability.
 
 | Module | Scope |
 |---|---|
+| `config/test_database.py` | Backend selection, required credentials/ports, separate test credentials, and database-name safety |
 | `programs/test_workspace.py` | All resource workflows, authentication, permissions, CSRF, parent locking, and guarded deletion |
 | `programs/test_dashboard.py` | Program dashboards, scoped counts, aircraft, empty states, and filtered workspace links |
 | `programs/test_dashboard_access.py` | Dashboard authentication, model permissions, restricted counts/aircraft, specification access, and workspace integration |
@@ -88,8 +100,13 @@ correctness or complete Unicode support.
 Complete discovery, including all model and export tests:
 
 ```bash
+python manage.py test --settings=config.postgres_test_settings --verbosity=2 --noinput
+# Optional in-memory SQLite compatibility run:
 python manage.py test --settings=config.test_settings --verbosity=2 --noinput
 ```
+
+The targeted examples below use SQLite for convenience. Substitute
+`config.postgres_test_settings` to run any of them on PostgreSQL.
 
 Model tests only:
 
@@ -115,9 +132,9 @@ CI-equivalent checks, after installing development dependencies:
 
 ```bash
 python -m pip check
-python manage.py check --settings=config.test_settings
-python manage.py makemigrations --check --dry-run --settings=config.test_settings
-python -m coverage run manage.py test --settings=config.test_settings --verbosity=2 --noinput
+python manage.py check --settings=config.postgres_test_settings
+python manage.py makemigrations --check --dry-run --settings=config.postgres_test_settings
+python -m coverage run manage.py test --settings=config.postgres_test_settings --verbosity=2 --noinput
 python -m coverage report
 ```
 
@@ -132,7 +149,7 @@ measured baseline was 96% line coverage.
 
 ## Regression status and scope
 
-The current baseline has 138 passing tests and no expected failures. Formula-like
+The current baseline has 148 passing tests on PostgreSQL and SQLite with no expected failures. Formula-like
 Excel remarks remain literal strings; oversized PDF rows split across pages
 without losing the content asserted by the regression test.
 

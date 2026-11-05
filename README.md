@@ -36,7 +36,8 @@ compliance evidence. These are **not implemented**.
 
 - Python 3.13.9: local baseline recorded in `.python-version`.
 - Django 5.2.18: server-rendered modular monolith and admin interface.
-- SQLite: local development; tests use a separate in-memory database.
+- PostgreSQL 18: primary development and CI database; SQLite remains an optional fallback.
+- Psycopg 3: PostgreSQL driver; isolated PostgreSQL and in-memory SQLite test settings.
 - openpyxl: Excel generation; ReportLab: PDF generation.
 - python-dotenv: optional local environment loading.
 - Development tools: pypdf for PDF inspection and coverage for line reports.
@@ -141,15 +142,47 @@ Keep `.env` private; it and `db.sqlite3` are ignored by Git.
 
 ### 4. Create the local development database
 
-For a new local development database:
+Install/start PostgreSQL 18 locally (Homebrew on macOS):
+
+```bash
+brew install postgresql@18
+brew services start postgresql@18
+```
+
+Create a dedicated development role `ftms_app` without superuser/role-creation
+privileges, a database `ftms_dev` owned by it, and a separate `ftms_test` login
+with `CREATEDB` for disposable tests. Choose private passwords and fill in the
+database variables in `.env.example` when creating your `.env`. The test role
+should not have access to your development data. Do not reuse production accounts.
+
+On this project's configured Mac, these roles/database have already been created
+and their generated credentials appended to the existing private `.env`.
+For a new machine, the following administrator SQL illustrates the setup; replace
+the password placeholders. Run it only once against your local development server:
+
+```sql
+CREATE ROLE ftms_app LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE PASSWORD 'choose-a-private-development-password';
+CREATE ROLE ftms_test LOGIN NOSUPERUSER CREATEDB NOCREATEROLE PASSWORD 'choose-a-private-test-password';
+CREATE DATABASE ftms_dev OWNER ftms_app;
+REVOKE CONNECT ON DATABASE ftms_dev FROM PUBLIC;
+GRANT CONNECT ON DATABASE ftms_dev TO ftms_app;
+```
+
+With `DJANGO_DB_ENGINE=postgresql` and your development connection configured:
 
 ```bash
 python manage.py check
 python manage.py migrate
 ```
 
-Normal settings use `db.sqlite3` in the repository root. These commands are setup
-instructions, not a reason to reset an existing database or migration history.
+The existing migrations create the PostgreSQL schema; no model or migration
+rewrites are needed. A fresh database has no application records or user accounts.
+Existing SQLite data is **not transferred automatically**. Preserve `db.sqlite3`;
+transferring its records/accounts is a separate task.
+
+For the optional SQLite fallback, set `DJANGO_DB_ENGINE=sqlite` in your local
+environment. Without an engine setting, normal settings retain the original
+SQLite default. Do not reset existing databases or migration history.
 
 ### 5. Load synthetic demo data (optional)
 
@@ -198,26 +231,31 @@ Stop the server with Ctrl+C. Django's development server is not a production hos
 With the virtual environment activated:
 
 ```bash
-python manage.py test --settings=config.test_settings --verbosity=2 --noinput
-python manage.py check --settings=config.test_settings
-python manage.py makemigrations --check --dry-run --settings=config.test_settings
-python -m coverage run manage.py test --settings=config.test_settings --verbosity=2 --noinput
+python manage.py test --settings=config.postgres_test_settings --verbosity=2 --noinput
+python manage.py check --settings=config.postgres_test_settings
+python manage.py makemigrations --check --dry-run --settings=config.postgres_test_settings
+python -m coverage run manage.py test --settings=config.postgres_test_settings --verbosity=2 --noinput
 python -m coverage report
 ```
 
-Test settings skip `.env`, use a synthetic secret and an in-memory SQLite database,
-and do not require demo loading or a superuser. Never serve the application with
-test settings. See [TESTING.md](TESTING.md) for targeted commands and interpretation.
+PostgreSQL test settings use synthetic application configuration and a separate
+test role. They read only database connection values from local `.env`, with
+process variables taking precedence. CI sets `DJANGO_TEST_LOAD_DOTENV=false`.
+The default disposable database is `test_ftms`; its name must start with `test_`
+and differ from the development database. Django creates and removes it.
 
-The Foundation baseline has 73 tests: **71 pass and two are expected failures**.
-Counts change as tests are added. The expected failures record known defects;
-a successful test run does not mean those defects are fixed.
+For fast in-memory SQLite checks, use `--settings=config.test_settings`; that
+configuration ignores `.env` completely. Both test configurations require no demo
+loading or superuser and must never be used to serve the application.
+See [TESTING.md](TESTING.md) for details.
+
+The current suite has **148 passing tests** on both backends, with no expected failures.
 
 ## GitHub Actions CI
 
 [`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs on pushes to `main` and
 `feature/ftms-ai`, and pull requests targeting either branch. It uses Ubuntu,
-Python 3.13, pinned requirement files, read-only contents permission, and a
+Python 3.13, a disposable PostgreSQL 18 service, pinned requirement files, read-only contents permission, and a
 10-minute timeout. It installs dependencies, runs `pip check`, Django checks,
 migration drift detection, the complete suite, and a terminal coverage report.
 
@@ -228,19 +266,19 @@ in GitHub after the owner pushes; local checks do not establish hosted success.
 
 ## Known limitations and roadmap
 
-- Custom matrix and export endpoints currently allow anonymous access; program
-  filtering is not user authorization. Use synthetic data on public demos.
+- Workspace pages, matrices, and exports require authentication and model
+  permissions. Program-specific membership authorization is not implemented.
 - Cross-program validation uses model `clean()`; direct `save()` and bulk writes
   can bypass it. Parent changes do not automatically validate descendants.
 - Card points are inferred from sequence assignments; cards and sequences are
   mutable despite revision labels. No approval history or immutable release exists.
-- Excel interprets formula-like text such as `=1+1` as a formula (expected failure).
-- Oversized PDF table rows can raise `LayoutError` (expected failure).
+- Excel formula-like text and oversized PDF rows have passing regression tests;
+  representative PDF layouts still require visual review.
 - Exports omit some units, tolerances, point criteria, and referenced revisions.
   They are planning demonstrations, not controlled flight instructions.
 - Some status values and identifiers lack constraints. Unit catalogs do not
   validate free-text point conditions. Font support and PDF layout need manual review.
-- SQLite concurrency, production hosting, backups, and operational controls are
+- Production concurrency, hosting, backups, and operational controls are
   not qualified by this test suite. No compliance claim is made.
 
 Recommended progression: program authorization and data integrity → reliable
